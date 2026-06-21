@@ -1,0 +1,2070 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethics — What Should I Do? v37</title>
+<style>
+  :root{
+    --bg:#eef6ea;
+    --paper:#fbfff8;
+    --ink:#1f2a1f;
+    --muted:#63705e;
+    --accent:#3f6b43;
+    --line:#8aa27f;
+    --gold:#a9b96d;
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+    --button:#f4fbef;
+    --button-hover:#e8f4df;
+    --border:#c9d9bd;
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    font-family: Georgia, "Times New Roman", serif;
+    background:linear-gradient(180deg, #f5fbf0 0%, #e5f0df 100%);
+    color:var(--ink);
+  }
+
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:38px 20px 64px;
+  }
+
+  header{
+    text-align:center;
+    margin-bottom:28px;
+  }
+
+  h1{
+    margin:0 0 10px 0;
+    font-size:clamp(2.4rem,5vw,4rem);
+    color:#2f5634;
+    letter-spacing:.02em;
+  }
+
+  .subtitle{
+    color:var(--muted);
+    font-size:clamp(1.4rem,3vw,2.1rem);
+    max-width:900px;
+    margin:0 auto;
+    line-height:1.45;
+    font-weight:700;
+  }
+
+  .home-card{
+    width:min(920px,94vw);
+    margin:36px auto 0;
+    background:var(--paper);
+    border:1px solid var(--border);
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    padding:34px 28px 38px;
+    text-align:center;
+  }
+
+  .prompt{
+    display:inline-block;
+    font-size:.86rem;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:#3f6b43;
+    background:#edf7e7;
+    border:1px solid #c9d9bd;
+    padding:7px 12px;
+    border-radius:999px;
+    margin-bottom:16px;
+  }
+
+  .intro{
+    max-width:780px;
+    margin:0 auto 28px;
+    color:#4f5e4a;
+    font-size:1.08rem;
+    line-height:1.65;
+  }
+
+  .choice-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(240px, 1fr));
+    gap:18px;
+    max-width:820px;
+    margin:0 auto;
+  }
+
+  .three-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(180px, 1fr));
+    gap:18px;
+    max-width:920px;
+    margin:26px auto 0;
+  }
+
+  .seven-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(210px, 1fr));
+    gap:16px;
+    max-width:820px;
+    margin:24px auto 0;
+  }
+
+  @media (max-width:760px){
+    .choice-grid,.three-grid,.seven-grid{grid-template-columns:1fr}
+  }
+
+  .choice{
+    min-height:150px;
+    border:2px solid #b8cdaa;
+    background:linear-gradient(180deg,#ffffff 0%, var(--button) 100%);
+    border-radius:18px;
+    box-shadow:0 8px 22px rgba(51,89,55,.08);
+    cursor:pointer;
+    font-family:Georgia, "Times New Roman", serif;
+    padding:22px 20px;
+    text-align:center;
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+    color:#203321;
+  }
+
+  .choice:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 28px rgba(51,89,55,.14);
+    border-color:var(--accent);
+    background:linear-gradient(180deg,#ffffff 0%, var(--button-hover) 100%);
+  }
+
+  .choice .small{
+    display:block;
+    color:var(--muted);
+    font-size:.9rem;
+    margin-bottom:10px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+  }
+
+  .choice .label{
+    display:block;
+    font-size:1.35rem;
+    line-height:1.25;
+    font-weight:700;
+    color:#2b4f30;
+  }
+
+  .mini-choice{
+    min-height:96px;
+    padding:18px;
+  }
+
+  .mini-choice .label{
+    font-size:1.15rem;
+  }
+
+  .panel{
+    display:none;
+    width:min(940px,94vw);
+    margin:36px auto 0;
+    background:var(--paper);
+    border:1px solid var(--border);
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    padding:30px 28px 34px;
+  }
+
+  .panel.active{
+    display:block;
+  }
+
+  .panel h2{
+    margin:0 0 12px;
+    color:#2f5634;
+    font-size:2rem;
+  }
+
+  .panel h3{
+    margin:22px 0 10px;
+    color:#315b36;
+    font-size:1.35rem;
+  }
+
+  .panel p{
+    color:#4f5e4a;
+    line-height:1.65;
+    font-size:1.05rem;
+  }
+
+  .back-button{
+    display:inline-block;
+    margin:0 0 16px 0;
+    padding:9px 13px;
+    border:1px solid #b8cdaa;
+    border-radius:10px;
+    background:#f4fbef;
+    color:#315b36;
+    font-family:Georgia, "Times New Roman", serif;
+    font-size:.95rem;
+    font-weight:700;
+    cursor:pointer;
+  }
+
+  .back-button:hover{
+    background:#e8f4df;
+  }
+
+  .note{
+    margin-top:20px;
+    padding:16px 18px;
+    border-left:4px solid var(--gold);
+    background:#f4faef;
+    color:#4c5c47;
+    border-radius:10px;
+    line-height:1.6;
+  }
+
+  .link-button{
+    display:inline-block;
+    margin:8px;
+    padding:13px 18px;
+    border:2px solid #b8cdaa;
+    border-radius:13px;
+    background:linear-gradient(180deg,#ffffff 0%, var(--button) 100%);
+    color:#2b4f30;
+    font-family:Georgia, "Times New Roman", serif;
+    font-size:1rem;
+    font-weight:700;
+    text-decoration:none;
+    box-shadow:0 6px 16px rgba(51,89,55,.08);
+  }
+
+  .link-button:hover{
+    background:linear-gradient(180deg,#ffffff 0%, var(--button-hover) 100%);
+    border-color:var(--accent);
+  }
+
+  .concept-flow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:28px auto 10px;
+  }
+
+  .flow-btn{
+    min-width:190px;
+    min-height:86px;
+    border:2px solid #b8cdaa;
+    background:linear-gradient(180deg,#ffffff 0%, var(--button) 100%);
+    border-radius:18px;
+    box-shadow:0 8px 22px rgba(51,89,55,.08);
+    cursor:pointer;
+    font-family:Georgia, "Times New Roman", serif;
+    padding:18px 20px;
+    text-align:center;
+    color:#2b4f30;
+    font-size:1.25rem;
+    font-weight:700;
+  }
+
+  .flow-btn:hover{
+    background:linear-gradient(180deg,#ffffff 0%, var(--button-hover) 100%);
+    border-color:var(--accent);
+  }
+
+  .arrow{
+    color:#56734f;
+    font-size:2rem;
+    font-weight:700;
+  }
+
+  .colon{
+    color:#56734f;
+    font-size:2rem;
+    font-weight:700;
+  }
+
+  .definition{
+    background:#f7fbf2;
+    border:1px solid #d6e2cd;
+    border-radius:16px;
+    padding:18px 20px;
+    margin-top:18px;
+  }
+
+  .definition strong{
+    color:#315b36;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1 onclick="showHome()" style="cursor:pointer;">Ethics</h1>
+<p class="subtitle">What Should I Do?</p>
+</header>
+<main class="home-card" id="home">
+<div class="prompt">First Branch</div>
+<p class="intro">
+      Ethics begins by asking what action should be chosen. The first branch is between
+      doing what is good and doing what is evil.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('good')" type="button">
+<span class="small">Option 1</span>
+<span class="label">I should do what is good</span>
+</button>
+<button class="choice" onclick="showPanel('evil')" type="button">
+<span class="small">Option 2</span>
+<span class="label">I should do what is evil</span>
+</button>
+</div>
+</main>
+<section class="panel" id="panel-good">
+<button class="back-button" onclick="showHome()" type="button">← Back</button>
+<h2>What is the Good?</h2>
+<p class="intro">
+      The good is the end at which action aims. Ethics asks what the good is, how we are
+      formed to seek it, and what follows from possessing it.
+    </p>
+<h3>The Three Main Concepts in Ethics</h3>
+<div class="concept-flow">
+<button class="flow-btn" onclick="showPanel('virtue')" type="button">Virtue</button>
+<span class="arrow">→</span>
+<button class="flow-btn" onclick="showPanel('the-good')" type="button">The Good</button>
+<span class="colon">:</span>
+<button class="flow-btn" onclick="showPanel('happiness')" type="button">Happiness</button>
+</div>
+<div class="definition" style="margin-top:26px;">
+<h3>What does morality presuppose?</h3>
+<p>
+        A transcendental argument is one that shows for B to be true, A must first be true.
+        If deduction can be described as moving forward from a premise to a conclusion,
+        transcendental arguments (or presuppositional thinking) can be described as moving
+        backward from a conclusion to what must be true for that conclusion to be true.
+      </p>
+</div>
+<div class="choice-grid" style="margin-top:24px;">
+<button class="choice" onclick="showPanel('moral-presuppositions')" type="button">
+<span class="small">Main Argument</span>
+<span class="label">Moral Presuppositions</span>
+</button>
+</div>
+<div class="definition" style="margin-top:30px;">
+<h3>Optional Academic Branches</h3>
+<p>
+        These branches organize the standard academic divisions of ethics. They are important for a complete study,
+        but they are placed after the main flow because the central question remains: what must be true for morality,
+        obligation, goodness, and human purpose to be real?
+      </p>
+</div>
+<div class="choice-grid" style="margin-top:20px;">
+<button class="choice mini-choice" onclick="showPanel('normative-ethics')" type="button">
+<span class="small">Academic Branch</span>
+<span class="label">Normative Ethics</span>
+</button>
+<button class="choice mini-choice" onclick="showPanel('metaethics')" type="button">
+<span class="small">Academic Branch</span>
+<span class="label">Metaethics</span>
+</button>
+<button class="choice mini-choice" onclick="showPanel('applied-ethics')" type="button">
+<span class="small">Academic Branch</span>
+<span class="label">Applied Ethics</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-evil">
+<button class="back-button" onclick="showHome()" type="button">← Back</button>
+<h2>I should do what is evil</h2>
+<p>
+      No one knowingly does evil. In Plato’s work called the <em>Meno</em>, Socrates proves to Meno that no one knowingly does evil.
+    </p>
+<p>
+      We might do what someone else calls evil. For instance, Milton portrays Lucifer as saying, “evil, be thou my good.” He means that what God calls evil he will call good.
+    </p>
+<p>
+      Augustine gives an example from when he and his friends stole pears. They did not need pears; his mother had some at home. And the pears he stole did not taste good. But he reports this as an example where he did what he knew was wrong. “Wrong” means “commanded against” or “does not lead to what is truly good.” Yet the good he was seeking was the excitement of doing something socially wrong with his friends. It was a thrill. For Augustine at that moment, having that thrill was good, and therefore stealing was the right thing to do in order to get the thrill, but the wrong thing to do if he wanted to please God.
+    </p>
+<p>
+      Each choice we make shows us what we think is good at that moment.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('akrasia')" type="button">
+<span class="small">Reflection</span>
+<span class="label">I have a weak will</span>
+</button>
+<button class="choice" onclick="showPanel('ignorance-of-evil')" type="button">
+<span class="small">Reflection</span>
+<span class="label">I didn’t know it was evil</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-virtue">
+<button class="back-button" onclick="showPanel('good')" type="button">← Back</button>
+<h2>The Means to the Good</h2>
+<p>
+      Virtues are a means to the good. In order to identify the virtues and correctly define them, we must first know what is good. The virtues aim at the good. For example, you cannot answer “how do I get there?” without first knowing “where am I going?” A vice is something that takes you away from the good.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('akrasia')" type="button">
+<span class="small">Reflection</span>
+<span class="label">I have a weak will</span>
+</button>
+<button class="choice" onclick="showPanel('ignorance-of-evil')" type="button">
+<span class="small">Reflection</span>
+<span class="label">I didn’t know it was evil</span>
+</button>
+<button class="choice" onclick="showPanel('instrumental')" type="button">
+<span class="small">Category</span>
+<span class="label">Instrumental</span>
+</button>
+<button class="choice" onclick="showPanel('natural')" type="button">
+<span class="small">Category</span>
+<span class="label">Natural</span>
+</button>
+<button class="choice" onclick="showPanel('moral')" type="button">
+<span class="small">Category</span>
+<span class="label">Moral</span>
+</button>
+<button class="choice" onclick="showPanel('vices')" type="button">
+<span class="small">Opposite of Virtue</span>
+<span class="label">Vices</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-instrumental">
+<button class="back-button" onclick="showPanel('virtue')" type="button">← Back to Virtue</button>
+<h2>Instrumental Virtues</h2>
+<p>
+      Instrumental goods are useful things such as money, a house, or a car. They help us live
+      a life, but they are not the highest good. They can become vices when they are directed
+      toward something that is not truly good.
+    </p>
+</section>
+<section class="panel" id="panel-natural">
+<button class="back-button" onclick="showPanel('virtue')" type="button">← Back to Virtue</button>
+<h2>Natural Virtues</h2>
+<p>
+      Natural virtues are talents and abilities we are born with. We can use them to achieve
+      what is good for ourselves and for others. But they become vices when they are not
+      directed toward the good.
+    </p>
+</section>
+<section class="panel" id="panel-moral">
+<button class="back-button" onclick="showPanel('virtue')" type="button">← Back to Virtue</button>
+<h2>Moral Virtues</h2>
+<p>
+      Moral virtues are personal characteristics that require discipline to develop. They are
+      often organized into the four classical, sometimes called pagan, virtues and the three
+      additional Christian virtues.
+    </p>
+<div class="seven-grid">
+<button class="choice mini-choice" onclick="showPanel('prudence')" type="button"><span class="label">Prudence</span></button>
+<button class="choice mini-choice" onclick="showPanel('justice')" type="button"><span class="label">Justice</span></button>
+<button class="choice mini-choice" onclick="showPanel('temperance')" type="button"><span class="label">Temperance</span></button>
+<button class="choice mini-choice" onclick="showPanel('fortitude')" type="button"><span class="label">Fortitude</span></button>
+<button class="choice mini-choice" onclick="showPanel('faith')" type="button"><span class="label">Faith</span></button>
+<button class="choice mini-choice" onclick="showPanel('hope')" type="button"><span class="label">Hope</span></button>
+<button class="choice mini-choice" onclick="showPanel('love')" type="button"><span class="label">Love</span></button>
+</div>
+</section>
+<section class="panel" id="panel-the-good">
+<button class="back-button" onclick="showPanel('good')" type="button">← Back to Good</button>
+<h2>The Good</h2>
+<p>
+      All of our choices aim at something. Each choice might aim at something which then aims at another thing.
+      The good is that at which all things aim. There cannot be an infinite line of goods as this would make
+      choice pointless. Aristotle defines the good at the beginning of his <em>Nicomachean Ethics</em>.
+      The good is based on the nature of a thing.
+    </p>
+<div style="text-align:center; margin-top:24px;">
+<a class="link-button" href="https://classics.mit.edu/Aristotle/nicomachaen.html" rel="noopener" target="_blank">
+        Aristotle's Ethics
+      </a>
+</div>
+<div class="choice-grid" style="margin-top:26px;">
+<button class="choice" onclick="showPanel('law')" type="button">
+<span class="small">Next Branch</span>
+<span class="label">The Law</span>
+</button>
+<button class="choice" onclick="showPanel('are-you-good')" type="button">
+<span class="small">Reflection</span>
+<span class="label">Are you good?</span>
+</button>
+<button class="choice" onclick="showPanel('connotative-definition')" type="button">
+<span class="small">Definition</span>
+<span class="label">Connotative Definition</span>
+</button>
+<button class="choice" onclick="showPanel('denotative-definition')" type="button">
+<span class="small">Definition</span>
+<span class="label">Denotative Definition</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-happiness">
+<button class="back-button" onclick="showPanel('good')" type="button">← Back</button>
+<h2>Happiness</h2>
+<p>
+      Happiness is the effect of possessing what we believe is good.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('are-you-good')" type="button">
+<span class="small">Reflection</span>
+<span class="label">Are you good?</span>
+</button>
+<button class="choice" onclick="showPanel('temporary-happiness')" type="button">
+<span class="small">Happiness</span>
+<span class="label">Temporary Happiness</span>
+</button>
+<button class="choice" onclick="showPanel('lasting-happiness')" type="button">
+<span class="small">Happiness</span>
+<span class="label">Lasting Happiness</span>
+</button>
+</div>
+</section>
+<section class="panel virtue-def" id="panel-prudence">
+<button class="back-button" onclick="showPanel('moral')" type="button">← Back to Moral Virtues</button>
+<h2>Prudence</h2>
+<div class="definition">
+<p><strong>Definition:</strong> Prudence is practical wisdom: the disciplined ability to judge rightly about what should be done in order to attain the good.</p>
+</div>
+</section>
+<section class="panel virtue-def" id="panel-justice">
+<button class="back-button" onclick="showPanel('moral')" type="button">← Back to Moral Virtues</button>
+<h2>Justice</h2>
+<div class="definition">
+<p><strong>Definition:</strong> Justice is giving to each what is due, according to what is good, right, and owed.</p>
+</div>
+</section>
+<section class="panel virtue-def" id="panel-temperance">
+<button class="back-button" onclick="showPanel('moral')" type="button">← Back to Moral Virtues</button>
+<h2>Temperance</h2>
+<div class="definition">
+<p><strong>Definition:</strong> Temperance is disciplined self-rule over desires so that appetites serve the good rather than rule the person.</p>
+</div>
+</section>
+<section class="panel virtue-def" id="panel-fortitude">
+<button class="back-button" onclick="showPanel('moral')" type="button">← Back to Moral Virtues</button>
+<h2>Fortitude</h2>
+<div class="definition">
+<p><strong>Definition:</strong> Fortitude is courage in pursuing the good and enduring difficulty, danger, or suffering for what is right.</p>
+</div>
+</section>
+<section class="panel virtue-def" id="panel-faith">
+<button class="back-button" onclick="showPanel('moral')" type="button">← Back to Moral Virtues</button>
+<h2>Faith</h2>
+<div class="definition">
+<p><strong>Definition:</strong> Faith is trusting God as He makes Himself known, receiving His Word as true, and acting in confidence upon it.</p>
+</div>
+</section>
+<section class="panel virtue-def" id="panel-hope">
+<button class="back-button" onclick="showPanel('moral')" type="button">← Back to Moral Virtues</button>
+<h2>Hope</h2>
+<div class="definition">
+<p><strong>Definition:</strong> Hope is confident expectation of the good God has promised, especially when present circumstances are incomplete or difficult.</p>
+</div>
+</section>
+<section class="panel virtue-def" id="panel-love">
+<button class="back-button" onclick="showPanel('moral')" type="button">← Back to Moral Virtues</button>
+<h2>Love</h2>
+<div class="definition">
+<p><strong>Definition:</strong> Love is willing and seeking the true good of another according to God, rather than merely affirming desire.</p>
+</div>
+</section>
+<section class="panel" id="panel-temporary-happiness">
+<button class="back-button" onclick="showPanel('happiness')" type="button">← Back</button>
+<h2>Temporary Happiness</h2>
+<p>
+      Temporary happiness is fleeting because it is not based on what is truly good. It is
+      based on a mistaken belief about what is good. When that thing we mistakenly believe is
+      the good fails, our happiness is gone.
+    </p>
+</section>
+<section class="panel" id="panel-lasting-happiness">
+<button class="back-button" onclick="showPanel('happiness')" type="button">← Back</button>
+<h2>Lasting Happiness</h2>
+<p>
+      Lasting happiness is possible by knowing what is truly good.
+    </p>
+</section>
+<section class="panel" id="panel-pride">
+<button class="back-button" onclick="showPanel('vices')" type="button">← Back</button>
+<h2>Pride</h2>
+<p>Pride is the elevation of oneself above God and others.</p>
+</section>
+<section class="panel" id="panel-greed">
+<button class="back-button" onclick="showPanel('vices')" type="button">← Back</button>
+<h2>Greed</h2>
+<p>Greed is an excessive desire for material wealth or gain.</p>
+</section>
+<section class="panel" id="panel-lust">
+<button class="back-button" onclick="showPanel('vices')" type="button">← Back</button>
+<h2>Lust</h2>
+<p>Lust is disordered desire for sexual pleasure.</p>
+</section>
+<section class="panel" id="panel-envy">
+<button class="back-button" onclick="showPanel('vices')" type="button">← Back</button>
+<h2>Envy</h2>
+<p>Envy is sorrow at another’s good.</p>
+</section>
+<section class="panel" id="panel-gluttony">
+<button class="back-button" onclick="showPanel('vices')" type="button">← Back</button>
+<h2>Gluttony</h2>
+<p>Gluttony is overindulgence in food or drink.</p>
+</section>
+<section class="panel" id="panel-wrath">
+<button class="back-button" onclick="showPanel('vices')" type="button">← Back</button>
+<h2>Wrath</h2>
+<p>Wrath is uncontrolled anger and the desire for vengeance.</p>
+</section>
+<section class="panel" id="panel-sloth">
+<button class="back-button" onclick="showPanel('vices')" type="button">← Back</button>
+<h2>Sloth</h2>
+<p>Sloth is laziness or failure to pursue the good. In Latin it was called <em>acedia</em> which means spiritual laziness. Sloth gives up easily when suffering and difficulties arise. The slothful person does not seek the good.</p>
+</section>
+<section class="panel" id="panel-law">
+<button class="back-button" onclick="showPanel('the-good')" type="button">← Back to The Good</button>
+<h2>The Law</h2>
+<p>
+      The Law text
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('secular-ethical-theories')" type="button">
+<span class="small">Branch</span>
+<span class="label">Secular Ethical Theories</span>
+</button>
+<button class="choice" onclick="showPanel('theistic-ethical-theories')" type="button">
+<span class="small">Branch</span>
+<span class="label">Theistic Ethical Theories</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-secular-ethical-theories">
+<button class="back-button" onclick="showPanel('law')" type="button">← Back to The Law</button>
+<h2>Secular Ethical Theories</h2>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('egoism')" type="button"><span class="label">Ethical Egoism</span></button>
+<button class="choice" onclick="showPanel('utilitarianism')" type="button"><span class="label">Utilitarianism</span></button>
+<button class="choice" onclick="showPanel('deontology')" type="button"><span class="label">Deontology</span></button>
+<button class="choice" onclick="showPanel('existentialism')" type="button"><span class="label">Existentialism</span></button>
+<button class="choice" onclick="showPanel('naturalism')" type="button"><span class="label">Naturalism</span></button>
+<button class="choice" onclick="showPanel('tradition')" type="button"><span class="label">Tradition</span></button>
+<button class="choice" onclick="showPanel('humanism')" type="button"><span class="label">Humanism</span></button>
+<button class="choice" onclick="showPanel('stoicism')" type="button"><span class="label">Stoicism</span></button>
+<button class="choice" onclick="showPanel('contemplation')" type="button"><span class="label">Contemplation</span></button>
+<button class="choice" onclick="showPanel('postmodernism')" type="button"><span class="label">Postmodernism</span></button>
+</div>
+</section>
+<section class="panel" id="panel-theistic-ethical-theories">
+<button class="back-button" onclick="showPanel('law')" type="button">← Back to The Law</button>
+<h2>Theistic Moral Theories</h2>
+<p>
+      Theistic moral theories find the moral absolute in the metaphysical absolute: God.
+      In theism, God is a spirit, infinite, eternal, and unchangeable in being, wisdom,
+      power, holiness, justice, goodness, and truth.
+    </p>
+<p>
+      There are three parts to that definition. First, God is a spirit. God is immaterial
+      and conscious/personal. Second, the incommunicable attributes. These are what make
+      God distinct from the creation. Only God has these. He cannot create a creature that
+      has them nor can a creature grow to have them. Creatures are always finite, temporal,
+      and changeable.
+    </p>
+<p>
+      Third, the properties listed such as power and goodness. God has these infinitely,
+      eternally, and unchangeably. Humans, made in the image of God, can have them but
+      finitely, temporally, and changeably. The aspect of the image of God that was lost
+      in the fall is called: knowledge, holiness, and righteousness. These are lost in sin
+      which is not seeking, not understanding, and not doing what is right.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('natural-law')" type="button">
+<span class="small">Theistic Theory</span>
+<span class="label">Natural Law</span>
+</button>
+<button class="choice" onclick="showPanel('divine-command-theory')" type="button">
+<span class="small">Theistic Theory</span>
+<span class="label">Divine Command Theory</span>
+</button>
+<button class="choice" onclick="showPanel('euthyphro-dilemma')" type="button">
+<span class="small">Objection</span>
+<span class="label">Euthyphro Dilemma</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-egoism">
+<button class="back-button" onclick="showPanel('secular-ethical-theories')" type="button">← Back</button>
+<h2>Ethical Egoism</h2>
+<p>Ethical Egoism text</p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('egoism-thrasymachus')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Thrasymachus</span>
+</button>
+<button class="choice" onclick="showPanel('egoism-aynrand')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Ayn Rand</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-utilitarianism">
+<button class="back-button" onclick="showPanel('secular-ethical-theories')" type="button">← Back</button>
+<h2>Utilitarianism</h2>
+<p>
+      Utilitarianism teaches that moral choices should be judged by their usefulness in producing
+      the greatest overall benefit. It is often summarized by the idea that the needs of the many
+      outweigh the needs of the few. A related political slogan is, “From each according to his
+      ability, to each according to his needs.”
+    </p>
+<p>
+      Utilitarian theories differ in how they apply this standard. Some forms focus on the consequences
+      of individual acts. Others emphasize rules, principles, or social arrangements that are supposed
+      to produce the greatest good for the greatest number.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('utilitarianism-mill')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">John Stuart Mill</span>
+</button>
+<button class="choice" onclick="showPanel('utilitarianism-marx')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Karl Marx</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-deontology">
+<button class="back-button" onclick="showPanel('secular-ethical-theories')" type="button">← Back</button>
+<h2>Deontology</h2>
+<p>Deontology text</p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('deontology-kant')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Kant</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-existentialism">
+<button class="back-button" onclick="showPanel('secular-ethical-theories')" type="button">← Back</button>
+<h2>Existentialism</h2>
+<p>Existentialism text</p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('existentialism-kierkegaard')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Kierkegaard</span>
+</button>
+<button class="choice" onclick="showPanel('existentialism-sartre')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Sartre</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-naturalism">
+<button class="back-button" onclick="showPanel('secular-ethical-theories')" type="button">← Back</button>
+<h2>Naturalism</h2>
+<p>Naturalism text</p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('naturalism-rousseau')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Rousseau</span>
+</button>
+<button class="choice" onclick="showPanel('naturalism-laotzu')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Lao-Tzu</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-tradition">
+<button class="back-button" onclick="showPanel('secular-ethical-theories')" type="button">← Back</button>
+<h2>Tradition</h2>
+<p>Tradition text</p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('tradition-confucius')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Confucius</span>
+</button>
+<button class="choice" onclick="showPanel('tradition-rabbinicjudaism')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Rabbinic Judaism</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-humanism">
+<button class="back-button" onclick="showPanel('secular-ethical-theories')" type="button">← Back</button>
+<h2>Humanism</h2>
+<p>Humanism text</p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('humanism-erasmus')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Erasmus</span>
+</button>
+<button class="choice" onclick="showPanel('humanism-maslow')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Maslow</span>
+</button>
+<button class="choice" onclick="showPanel('humanism-aristotle')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Aristotle</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-stoicism">
+<button class="back-button" onclick="showPanel('secular-ethical-theories')" type="button">← Back</button>
+<h2>Stoicism</h2>
+<p>Stoicism text</p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('stoicism-zenoofcitium')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Zeno of Citium</span>
+</button>
+<button class="choice" onclick="showPanel('stoicism-buddha')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Buddha</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-contemplation">
+<button class="back-button" onclick="showPanel('secular-ethical-theories')" type="button">← Back</button>
+<h2>Contemplation</h2>
+<p>Contemplation text</p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('contemplation-plato')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Plato</span>
+</button>
+<button class="choice" onclick="showPanel('contemplation-aristotle')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Aristotle</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-postmodernism">
+<button class="back-button" onclick="showPanel('secular-ethical-theories')" type="button">← Back</button>
+<h2>Postmodernism</h2>
+<p>Postmodernism text</p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('postmodernism-marcuse')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Marcuse</span>
+</button>
+<button class="choice" onclick="showPanel('postmodernism-foucault')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Foucault</span>
+</button>
+<button class="choice" onclick="showPanel('postmodernism-derrida')" type="button">
+<span class="small">Philosopher</span>
+<span class="label">Derrida</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-egoism-thrasymachus"><button class="back-button" onclick="showPanel('egoism')" type="button">← Back</button><h2>Thrasymachus</h2><p>Thrasymachus (c. 459–400 BC) was a sophist from Chalcedon who was active in Athens. He was not a professor in the modern university sense, but worked as a teacher of rhetoric and appears prominently in Plato’s Republic.</p><p>His main ethical contribution is the claim that justice is the advantage of the stronger. On this view, moral language is often a mask for power: rulers define justice in a way that benefits themselves.</p><div class="note">Critique: Thrasymachus reduces justice to power. If justice is only the advantage of the stronger, then there is no objective standard by which to judge tyrants, unjust laws, or corrupt rulers.</div></section>
+<section class="panel" id="panel-egoism-aynrand"><button class="back-button" onclick="showPanel('egoism')" type="button">← Back</button><h2>Ayn Rand</h2><p>Ayn Rand (1905–1982) was born in St. Petersburg, Russia, and later lived and worked in the United States. She was a novelist, essayist, and public lecturer rather than a university professor.</p><p>Her main ethical contribution is Objectivist ethics. She argued that rational self-interest is the proper moral standard and that each person’s own life and happiness should be treated as his highest moral purpose.</p><div class="note">Critique: Rand elevates rational self-interest but cannot adequately explain why one has binding moral duties to others when those duties conflict with self-advantage.</div></section>
+<section class="panel" id="panel-deontology-kant"><button class="back-button" onclick="showPanel('deontology')" type="button">← Back</button><h2>Immanuel Kant</h2><p>Immanuel Kant (1724–1804) lived in Königsberg, Prussia, and taught at the University of Königsberg. He is one of the central figures of modern philosophy.</p><p>His main ethical contribution is deontological ethics. Kant argued that morality is grounded in rational duty rather than consequences. His categorical imperative says that one should act only according to maxims that can be willed as universal laws.</p><div class="note">Critique: Kant rightly emphasizes duty, but he attempts to ground moral obligation in autonomous reason rather than in God, leaving unclear why rational form alone should bind the will with moral authority.</div></section>
+<section class="panel" id="panel-existentialism-kierkegaard"><button class="back-button" onclick="showPanel('existentialism')" type="button">← Back</button><h2>Søren Kierkegaard</h2><p>Søren Kierkegaard (1813–1855) lived in Copenhagen, Denmark. He was not a university professor; he wrote as a Christian philosopher, theologian, and literary critic.</p><p>His main ethical contribution is his analysis of stages of life: the aesthetic, the ethical, and the religious. He argued that the ethical life requires serious personal commitment, but that faith can bring a person into a higher relation to God beyond merely social morality.</p><div class="note">Critique: Kierkegaard powerfully exposes shallow social morality, but his emphasis on subjective inwardness can be misused to separate faith and ethics from publicly knowable truth.</div></section>
+<section class="panel" id="panel-existentialism-sartre"><button class="back-button" onclick="showPanel('existentialism')" type="button">← Back</button><h2>Jean-Paul Sartre</h2><p>Jean-Paul Sartre (1905–1980) lived and worked mainly in Paris. He taught in French lycées and became a major public intellectual rather than a long-term university professor.</p><p>His main ethical contribution is existentialist freedom. Sartre argued that existence precedes essence: man has no fixed God-given nature and must create himself through choice.</p><div class="note">Critique: Sartre’s view makes moral value something created by human choice rather than discovered in reality, which collapses ethics into subjectivism.</div></section>
+<section class="panel" id="panel-naturalism-rousseau"><button class="back-button" onclick="showPanel('naturalism')" type="button">← Back</button><h2>Jean-Jacques Rousseau</h2><p>Jean-Jacques Rousseau (1712–1778) was born in Geneva and lived in France and Switzerland. He was not a university professor; he worked as a writer, composer, and political philosopher.</p><p>His ethical contribution is his appeal to nature, sentiment, and authenticity. Rousseau argued that human beings are corrupted by society and that moral and political renewal requires recovering natural freedom and sincerity.</p><div class="note">Critique: Rousseau’s appeal to nature is unstable because fallen or disordered human desires can be mistaken for authenticity. Nature alone does not define the moral good.</div></section>
+<section class="panel" id="panel-naturalism-laotzu"><button class="back-button" onclick="showPanel('naturalism')" type="button">← Back</button><h2>Lao-Tzu</h2><p>Lao-Tzu, traditionally dated to the 6th century BC, is associated with ancient China and the Taoist classic Tao Te Ching. His historical details are uncertain, and he was not a professor in the modern sense.</p><p>His ethical contribution is the Taoist ideal of living according to the Tao, often expressed through simplicity, humility, non-striving, and wu-wei, or action that does not force itself against the natural order.</p><div class="note">Critique: Taoism rightly criticizes prideful control, but its impersonal Tao does not supply a personal moral lawgiver or a clear account of moral obligation, guilt, and redemption.</div></section>
+<section class="panel" id="panel-tradition-confucius"><button class="back-button" onclick="showPanel('tradition')" type="button">← Back</button><h2>Confucius</h2><p>Confucius (551–479 BC) lived in the state of Lu in ancient China. He worked as a teacher, adviser, and public official, gathering disciples around a moral and social vision.</p><p>His ethical contribution is the emphasis on virtue, ritual propriety, filial piety, humane conduct, and the moral formation of persons through inherited social practices.</p><div class="note">Critique: Confucianism sees the importance of moral formation and tradition, but tradition by itself cannot prove that inherited practices are true, good, or rightly ordered toward God.</div></section>
+<section class="panel" id="panel-tradition-rabbinicjudaism"><button class="back-button" onclick="showPanel('tradition')" type="button">← Back</button><h2>Rabbinic Judaism</h2><p>Rabbinic Judaism developed after the destruction of the Jerusalem Temple in AD 70, especially through rabbinic schools and writings such as the Mishnah and Talmud. Its teachers lived and taught in Jewish communities in Palestine, Babylonia, and later the wider diaspora.</p><p>Its ethical contribution is the organization of Jewish life around Torah interpretation, commandments, rabbinic rulings, communal practice, and moral obedience understood through covenant identity.</p><div class="note">Critique: Rabbinic tradition preserves serious moral reflection, but when law-keeping is treated as the ground of righteousness before God, it cannot answer the deeper problem of sin and the need for atonement.</div></section>
+<section class="panel" id="panel-humanism-erasmus"><button class="back-button" onclick="showPanel('humanism')" type="button">← Back</button><h2>Erasmus</h2><p>Desiderius Erasmus (c. 1466–1536) was a Dutch Renaissance humanist who lived and worked across Europe, including Rotterdam, Paris, England, Basel, and Louvain. He was a scholar and editor rather than a settled university professor.</p><p>His ethical contribution is Christian humanist moral reform through education, classical learning, biblical scholarship, and the cultivation of peace, moderation, and piety.</p><div class="note">Critique: Erasmus emphasizes moral improvement and education, but humanist reform can underestimate the depth of sin and the need for divine redemption rather than mere cultivation.</div></section>
+<section class="panel" id="panel-humanism-maslow"><button class="back-button" onclick="showPanel('humanism')" type="button">← Back</button><h2>Abraham Maslow</h2><p>Abraham Maslow (1908–1970) was an American psychologist who taught at Brooklyn College, Brandeis University, and other institutions. He became a major figure in humanistic psychology.</p><p>His ethical contribution is the ideal of self-actualization. Maslow described human motivation as moving from basic needs toward growth, creativity, meaning, and the fulfillment of human potential.</p><div class="note">Critique: Maslow’s self-actualization framework makes human fulfillment central, but it lacks a sufficient account of man’s created purpose, sin, and the need to be reconciled to God.</div></section>
+<section class="panel" id="panel-humanism-aristotle"><button class="back-button" onclick="showPanel('humanism')" type="button">← Back</button><h2>Aristotle</h2><p>Aristotle (384–322 BC) was born in Stagira and taught at the Lyceum in Athens. He also studied in Plato’s Academy and later tutored Alexander the Great.</p><p>His ethical contribution is virtue ethics. Aristotle argued that the human good is happiness or flourishing, achieved by rational activity in accordance with virtue. He also treated contemplation as the highest human activity.</p><div class="note">Critique: Aristotle connects ethics to human nature and purpose, but his highest good remains contemplation of an impersonal unmoved mover rather than communion with the Creator.</div></section>
+<section class="panel" id="panel-stoicism-zenoofcitium"><button class="back-button" onclick="showPanel('stoicism')" type="button">← Back</button><h2>Zeno of Citium</h2><p>Zeno of Citium (c. 334–262 BC) was born in Citium on Cyprus and taught in Athens at the Stoa Poikile, from which Stoicism takes its name.</p><p>His ethical contribution is the Stoic ideal of living according to nature and reason. Virtue is the only true good, and external things are indifferent compared with rational self-mastery.</p><div class="note">Critique: Stoicism sees the importance of virtue and self-rule, but its impersonal rational order cannot adequately ground personal moral obligation, sin, or divine grace.</div></section>
+<section class="panel" id="panel-stoicism-buddha"><button class="back-button" onclick="showPanel('stoicism')" type="button">← Back</button><h2>The Buddha</h2><p>Siddhartha Gautama, the Buddha (traditionally c. 5th century BC), lived in northern India. He was a wandering religious teacher rather than a university professor.</p><p>His ethical contribution is the path to liberation from suffering through the Four Noble Truths and the Noble Eightfold Path. Ethics is ordered toward detachment from craving and escape from suffering.</p><div class="note">Critique: Buddhist ethics diagnoses disordered desire, but because it does not teach God the Creator, it cannot explain sin as failure to know and love God or redemption as restored communion with him.</div></section>
+<section class="panel" id="panel-postmodernism-marcuse"><button class="back-button" onclick="showPanel('postmodernism')" type="button">← Back</button><h2>Herbert Marcuse</h2><p>Herbert Marcuse (1898–1979) was born in Berlin and later taught in the United States, including at Brandeis University and the University of California, San Diego. He was associated with the Frankfurt School.</p><p>His ethical and political contribution is critical theory applied to liberation, repression, sexuality, and social transformation. He argued that supposedly neutral societies often preserve domination through culture and institutions.</p><div class="note">Critique: Marcuse’s critical theory treats liberation as moral, but it often replaces objective moral law with ideological suspicion and revolutionary social transformation.</div></section>
+<section class="panel" id="panel-postmodernism-foucault"><button class="back-button" onclick="showPanel('postmodernism')" type="button">← Back</button><h2>Michel Foucault</h2><p>Michel Foucault (1926–1984) was a French philosopher who taught at institutions including the University of Clermont-Ferrand, the University of Vincennes, and the Collège de France.</p><p>His ethical contribution is his analysis of power, discourse, discipline, sexuality, and the formation of the self. He argued that what societies call truth and morality is often shaped by power relations.</p><div class="note">Critique: Foucault’s reduction of moral truth to power undermines his own critique: if all moral claims are power moves, then his criticism of oppression is also just another power move.</div></section>
+<section class="panel" id="panel-postmodernism-derrida"><button class="back-button" onclick="showPanel('postmodernism')" type="button">← Back</button><h2>Jacques Derrida</h2><p>Jacques Derrida (1930–2004) was born in Algeria and worked mainly in France, teaching at the École Normale Supérieure and later at institutions including the École des Hautes Études en Sciences Sociales and the University of California, Irvine.</p><p>His ethical contribution is indirect, through deconstruction. Derrida questioned stable meanings, binary oppositions, and claims to final presence, influencing ethical approaches that emphasize openness, otherness, and suspicion toward totalizing systems.</p><div class="note">Critique: Derrida’s deconstruction unsettles fixed moral meanings, but if meaning is endlessly deferred, then clear moral judgment becomes difficult to sustain.</div></section>
+<section class="panel" id="panel-contemplation-plato"><button class="back-button" onclick="showPanel('contemplation')" type="button">← Back</button><h2>Plato</h2><p>Plato (427–347 BC) lived in Athens, studied under Socrates, and founded the Academy. He taught through dialogues and became one of the central figures in the history of philosophy.</p><p>His ethical contribution is the view that the soul should be ordered toward the Good itself. Justice is harmony in the soul and city, and philosophy turns the soul from shadows toward eternal realities.</p><div class="note">Critique: Plato rightly sees that ethics depends on the highest good, but his theory of Forms separates the good from the created order and does not identify the personal Creator as the highest good.</div></section>
+<section class="panel" id="panel-contemplation-aristotle"><button class="back-button" onclick="showPanel('contemplation')" type="button">← Back</button><h2>Aristotle</h2><p>Aristotle (384–322 BC) taught at the Lyceum in Athens. His ethics, especially the Nicomachean Ethics, analyzes virtue, practical wisdom, happiness, and contemplation.</p><p>His ethical contribution is the claim that the highest human life is the contemplative life, because contemplation exercises the highest part of the soul and resembles the activity of the unmoved mover.</p><div class="note">Critique: Aristotle makes contemplation central, but his God does not providentially know, love, or redeem human beings. The highest good is therefore not yet communion with the living God.</div></section>
+<section class="panel" id="panel-utilitarianism-mill"><button class="back-button" onclick="showPanel('utilitarianism')" type="button">← Back</button><h2>John Stuart Mill</h2><p>John Stuart Mill (1806–1873) lived and worked mainly in England. He was educated privately by his father, James Mill, and was not a traditional university professor, though he was closely associated with British intellectual and political life.</p><p>His main ethical contribution is his defense of utilitarianism. He argued that actions are right insofar as they tend to promote happiness and wrong insofar as they tend to produce the reverse of happiness. He also distinguished higher intellectual pleasures from lower bodily pleasures.</p><div class="note">Critique: Utilitarianism has difficulty measuring happiness and can justify harming innocent persons if doing so appears to maximize overall welfare.</div></section>
+<section class="panel" id="panel-utilitarianism-marx"><button class="back-button" onclick="showPanel('utilitarianism')" type="button">← Back</button><h2>Karl Marx</h2><p>Karl Marx (1818–1883) was born in Trier, studied at Bonn and Berlin, and spent much of his later life in London. He was not a university professor; he worked as a journalist, theorist, and revolutionary writer.</p><p>His ethical contribution is indirect but powerful: he framed moral and political life in terms of class struggle, material conditions, alienation, and the abolition of exploitative economic relations. His slogan-like ideal is often summarized as distribution according to need.</p><div class="note">Critique: Marx subordinates persons to historical and class categories, and his materialism gives no stable foundation for the moral dignity of the individual or for objective duties that transcend class interests.</div></section>
+<section class="panel" id="panel-natural-law">
+<button class="back-button" onclick="showPanel('theistic-ethical-theories')" type="button">← Back to Theistic Moral Theories</button>
+<h2>Natural Law</h2>
+<p>
+      Natural Law text
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('classical-natural-law')" type="button">
+<span class="small">Branch</span>
+<span class="label">Classical Natural Law</span>
+</button>
+<button class="choice" onclick="showPanel('new-natural-law')" type="button">
+<span class="small">Branch</span>
+<span class="label">New Natural Law</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law')" type="button">
+<span class="small">Branch</span>
+<span class="label">The Moral Law</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-divine-command-theory">
+<button class="back-button" onclick="showPanel('theistic-ethical-theories')" type="button">← Back to Theistic Moral Theories</button>
+<h2>Divine Command Theory</h2>
+<h3>God's Will</h3>
+<p>
+      The Divine Command Theory says that something is good or evil, right or wrong, because God wills it (God says so).
+      God might have willed something else to be right or wrong instead. For instance, God commanded us not to commit adultery,
+      but he might have commanded to commit adultery or there might be times where he overrides his command against adultery
+      and tells someone it is right to commit adultery in their case.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('voluntarism')" type="button">
+<span class="label">Voluntarism</span>
+</button>
+<button class="choice" onclick="showPanel('occasionalism')" type="button">
+<span class="label">Occasionalism</span>
+</button>
+<button class="choice" onclick="showPanel('nominalism')" type="button">
+<span class="label">Nominalism</span>
+</button>
+<button class="choice" onclick="showPanel('ockham')" type="button">
+<span class="label">William of Ockham</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-euthyphro-dilemma">
+<button class="back-button" onclick="showPanel('theistic-ethical-theories')" type="button">← Back to Theistic Moral Theories</button>
+<h2>Euthyphro Dilemma</h2>
+<p>
+      Euthyphro Dilemma text
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('euthyphro-horn-one')" type="button">
+<span class="small">Horn 1</span>
+<span class="label">Is it good because God commands it?</span>
+</button>
+<button class="choice" onclick="showPanel('euthyphro-horn-two')" type="button">
+<span class="small">Horn 2</span>
+<span class="label">Does God command it because it is good?</span>
+</button>
+<button class="choice" onclick="showPanel('euthyphro-resolution')" type="button">
+<span class="small">Resolution</span>
+<span class="label">God's Nature and the Good</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-voluntarism">
+<button class="back-button" onclick="showPanel('divine-command-theory')" type="button">← Back</button>
+<h2>Voluntarism</h2>
+<p>Voluntarism text</p>
+</section>
+<section class="panel" id="panel-occasionalism">
+<button class="back-button" onclick="showPanel('divine-command-theory')" type="button">← Back</button>
+<h2>Occasionalism</h2>
+<p>Occasionalism text</p>
+</section>
+<section class="panel" id="panel-nominalism">
+<button class="back-button" onclick="showPanel('divine-command-theory')" type="button">← Back</button>
+<h2>Nominalism</h2>
+<p>Nominalism text</p>
+</section>
+<section class="panel" id="panel-ockham">
+<button class="back-button" onclick="showPanel('divine-command-theory')" type="button">← Back</button>
+<h2>William of Ockham</h2>
+<p>William of Ockham text</p>
+</section>
+<section class="panel" id="panel-euthyphro-horn-one">
+<button class="back-button" onclick="showPanel('euthyphro-dilemma')" type="button">← Back to Euthyphro Dilemma</button>
+<h2>Horn 1: Is it good because God commands it?</h2>
+<p>
+      Horn 1 text
+    </p>
+</section>
+<section class="panel" id="panel-euthyphro-horn-two">
+<button class="back-button" onclick="showPanel('euthyphro-dilemma')" type="button">← Back to Euthyphro Dilemma</button>
+<h2>Horn 2: Does God command it because it is good?</h2>
+<p>
+      Horn 2 text
+    </p>
+</section>
+<section class="panel" id="panel-euthyphro-resolution">
+<button class="back-button" onclick="showPanel('euthyphro-dilemma')" type="button">← Back to Euthyphro Dilemma</button>
+<h2>God's Nature and the Good</h2>
+<p>
+      God's Nature and the Good text
+    </p>
+</section>
+<section class="panel" id="panel-classical-natural-law">
+<button class="back-button" onclick="showPanel('natural-law')" type="button">← Back to Natural Law</button>
+<h2>Classical Natural Law</h2>
+<p>
+      Classical natural law teaches that the moral law is grounded in the created order, human nature,
+      and the eternal wisdom of God. It is not invented by the will of the individual, the state, or a
+      culture. Rather, moral duties can be known by reason because God created human beings with a nature
+      and an end.
+    </p>
+<p>
+      Major figures in the classical natural law tradition include Aristotle, Cicero, Augustine, Thomas
+      Aquinas, John Calvin, Francis Turretin, and Richard Hooker. These thinkers differ in important ways,
+      but they share the conviction that moral order is rooted in reality and can be rationally known.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('classical-aristotle')" type="button">
+<span class="small">Classical Source</span>
+<span class="label">Aristotle</span>
+</button>
+<button class="choice" onclick="showPanel('classical-cicero')" type="button">
+<span class="small">Classical Source</span>
+<span class="label">Cicero</span>
+</button>
+<button class="choice" onclick="showPanel('classical-augustine')" type="button">
+<span class="small">Christian Source</span>
+<span class="label">Augustine</span>
+</button>
+<button class="choice" onclick="showPanel('classical-aquinas')" type="button">
+<span class="small">Medieval Source</span>
+<span class="label">Thomas Aquinas</span>
+</button>
+<button class="choice" onclick="showPanel('classical-calvin')" type="button">
+<span class="small">Reformed Source</span>
+<span class="label">John Calvin</span>
+</button>
+<button class="choice" onclick="showPanel('classical-turretin')" type="button">
+<span class="small">Reformed Scholastic</span>
+<span class="label">Francis Turretin</span>
+</button>
+<button class="choice" onclick="showPanel('classical-hooker')" type="button">
+<span class="small">Protestant Source</span>
+<span class="label">Richard Hooker</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-new-natural-law">
+<button class="back-button" onclick="showPanel('natural-law')" type="button">← Back to Natural Law</button>
+<h2>New Natural Law</h2>
+<p>
+      New Natural Law theory, sometimes called New Classical Natural Law theory, argues that practical reason
+      identifies basic human goods that are self-evidently worthwhile and provide reasons for action. Rather
+      than beginning with a metaphysical account of human nature in the older Thomistic style, New Natural Law
+      commonly begins with practical reason and the basic goods toward which human action is directed.
+    </p>
+<p>
+      Important representatives include Germain Grisez, John Finnis, Joseph Boyle, Robert P. George, Patrick Lee,
+      Christopher Tollefsen, Gerard V. Bradley, and William E. May. John Finnis and Robert P. George are both
+      major figures in this tradition.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('nnl-grisez')" type="button">
+<span class="small">Representative</span>
+<span class="label">Germain Grisez</span>
+</button>
+<button class="choice" onclick="showPanel('nnl-finnis')" type="button">
+<span class="small">Representative</span>
+<span class="label">John Finnis</span>
+</button>
+<button class="choice" onclick="showPanel('nnl-boyle')" type="button">
+<span class="small">Representative</span>
+<span class="label">Joseph Boyle</span>
+</button>
+<button class="choice" onclick="showPanel('nnl-george')" type="button">
+<span class="small">Representative</span>
+<span class="label">Robert P. George</span>
+</button>
+<button class="choice" onclick="showPanel('nnl-may')" type="button">
+<span class="small">Representative</span>
+<span class="label">William E. May</span>
+</button>
+<button class="choice" onclick="showPanel('nnl-anscombe')" type="button">
+<span class="small">Precursor</span>
+<span class="label">Elizabeth Anscombe (precursor)</span>
+</button>
+<button class="choice" onclick="showPanel('hart-fuller-debate')" type="button">
+<span class="small">Legal Theory Context</span>
+<span class="label">Hart/Fuller Debate</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-moral-law">
+<button class="back-button" onclick="showPanel('natural-law')" type="button">← Back to Natural Law</button>
+<h2>The Moral Law</h2>
+<p>
+      The moral law describes what choices must be made to achieve the good. It is clear,
+      comprehensive, and critical.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('knowing-moral-law')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Knowing the Moral Law</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law-1')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Moral Law 1</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law-2')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Moral Law 2</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law-3')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Moral Law 3</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law-4')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Moral Law 4</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law-5')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Moral Law 5</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law-6')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Moral Law 6</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law-7')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Moral Law 7</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law-8')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Moral Law 8</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law-9')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Moral Law 9</span>
+</button>
+<button class="choice" onclick="showPanel('moral-law-10')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Moral Law 10</span>
+</button>
+<button class="choice" onclick="showPanel('redemption')" type="button">
+<span class="small">Moral Law</span>
+<span class="label">Redemption</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-classical-aristotle">
+<button class="back-button" onclick="showPanel('classical-natural-law')" type="button">← Back to Classical Natural Law</button>
+<h2>Aristotle</h2>
+<p>
+      Aristotle text
+    </p>
+<p>Aristotle (384–322 BC) taught at the Lyceum in Athens. He argued that all things have a nature and an end (telos), and that the good for human beings is found in fulfilling their rational nature. His virtue ethics emphasizes habituation and the cultivation of character ordered toward flourishing (eudaimonia).</p>
+</section>
+<section class="panel" id="panel-classical-cicero">
+<button class="back-button" onclick="showPanel('classical-natural-law')" type="button">← Back to Classical Natural Law</button>
+<h2>Cicero</h2>
+<p>
+      Cicero text
+    </p>
+<p>Cicero (106–43 BC) was a Roman statesman and philosopher who transmitted Greek philosophy into the Roman world. He articulated a robust doctrine of natural law, arguing that true law is right reason in agreement with nature, universal and unchanging, grounded in the rational order of the cosmos.</p>
+</section>
+<section class="panel" id="panel-classical-augustine">
+<button class="back-button" onclick="showPanel('classical-natural-law')" type="button">← Back to Classical Natural Law</button>
+<h2>Augustine</h2>
+<p>
+      Augustine text
+    </p>
+<p>Augustine (354–430) was a Christian bishop and theologian in North Africa. He integrated classical philosophy with Christian doctrine, grounding moral law in the eternal law of God. He emphasized the will, sin, and the need for grace, arguing that true happiness is found only in rightly ordered love of God.</p>
+</section>
+<section class="panel" id="panel-classical-aquinas">
+<button class="back-button" onclick="showPanel('classical-natural-law')" type="button">← Back to Classical Natural Law</button>
+<h2>Thomas Aquinas</h2>
+<p>
+      Thomas Aquinas text
+    </p>
+<p>Thomas Aquinas (1225–1274) was a Dominican theologian who taught at Paris and elsewhere. He developed a systematic account of natural law, arguing that moral law is the rational participation of creatures in the eternal law of God. He distinguished between eternal law, natural law, and human law.</p>
+</section>
+<section class="panel" id="panel-classical-calvin">
+<button class="back-button" onclick="showPanel('classical-natural-law')" type="button">← Back to Classical Natural Law</button>
+<h2>John Calvin</h2>
+<p>
+      John Calvin text
+    </p>
+<p>John Calvin (1509–1564) was a Reformer based in Geneva. He affirmed natural law as part of general revelation, teaching that the moral law is written on the human heart but suppressed in sin. He emphasized the clarity of God's law and the need for Scripture to restore right understanding.</p>
+</section>
+<section class="panel" id="panel-classical-turretin">
+<button class="back-button" onclick="showPanel('classical-natural-law')" type="button">← Back to Classical Natural Law</button>
+<h2>Francis Turretin</h2>
+<p>
+      Francis Turretin text
+    </p>
+<p>Francis Turretin (1623–1687) was a Reformed scholastic theologian in Geneva. He defended classical natural law within a Protestant framework, arguing that moral principles are known by nature but clarified by Scripture, and he opposed voluntarist accounts that detach morality from God's nature.</p>
+</section>
+<section class="panel" id="panel-classical-hooker">
+<button class="back-button" onclick="showPanel('classical-natural-law')" type="button">← Back to Classical Natural Law</button>
+<h2>Richard Hooker</h2>
+<p>
+      Richard Hooker text
+    </p>
+<p>Richard Hooker (1554–1600) was an Anglican theologian. In his Laws of Ecclesiastical Polity, he argued for a synthesis of Scripture, reason, and tradition, defending natural law as rooted in the order established by God and knowable by reason.</p>
+</section>
+<section class="panel" id="panel-hart-fuller-debate">
+<button class="back-button" onclick="showPanel('new-natural-law')" type="button">← Back to New Natural Law</button>
+<h2>Hart/Fuller Debate</h2>
+<p>
+      Hart/Fuller Debate text
+    </p>
+<p>
+      H. L. A. Hart defended a form of legal positivism. On his view, the existence and validity
+      of law depend on social facts, legal rules, and recognized procedures, not necessarily on the
+      moral goodness of the law. A law can be valid law even if it is morally wicked.
+    </p>
+<p>
+      Lon Fuller argued that law has an internal morality. For a system to count as law, it must
+      exhibit features such as generality, publicity, prospectivity, clarity, consistency, possibility
+      of compliance, stability, and congruence between official action and declared rule.
+    </p>
+<p>
+      Their debate shaped modern legal theory by clarifying the conflict between legal positivism
+      and natural law. Hart emphasized the separation of law and morality at the level of legal validity.
+      Fuller argued that law cannot be understood apart from the moral conditions that make legal order
+      possible.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('ronald-dworkin')" type="button">
+<span class="small">Next Figure</span>
+<span class="label">Ronald Dworkin</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-ronald-dworkin">
+<button class="back-button" onclick="showPanel('hart-fuller-debate')" type="button">← Back to Hart/Fuller Debate</button>
+<h2>Ronald Dworkin</h2>
+<p>
+      Ronald Dworkin text
+    </p>
+<p>
+      Ronald Dworkin rejected a simple legal positivist account of law. He argued that law is not
+      only a system of rules, but also includes principles that judges must interpret and apply.
+      These principles are not merely policy preferences; they are part of the legal order itself.
+    </p>
+<p>
+      Dworkin is especially known for the idea of “law as integrity.” Judges should interpret the
+      law as a coherent moral and legal whole, seeking the interpretation that best fits the existing
+      legal materials and presents them in their best moral light.
+    </p>
+<p>
+      His work shaped legal theory by challenging Hart’s separation of law and morality. Dworkin argued
+      that legal interpretation inevitably involves moral reasoning, especially in hard cases where rules
+      do not mechanically settle the outcome.
+    </p>
+</section>
+<section class="panel" id="panel-nnl-anscombe">
+<button class="back-button" onclick="showPanel('new-natural-law')" type="button">← Back to New Natural Law</button>
+<h2>Elizabeth Anscombe (precursor)</h2>
+<p>
+      Elizabeth Anscombe (1919–2001) was a British analytic philosopher and a student of Ludwig Wittgenstein.
+      She is not usually classified as a New Natural Law theorist in the strict sense, but she is an important
+      precursor because she sharply criticized modern moral philosophy and called for renewed attention to
+      action, intention, virtue, and the conditions under which moral obligation language makes sense.
+    </p>
+<p>
+      Her 1958 essay <em>Modern Moral Philosophy</em> argued that modern moral theories had retained language
+      such as “ought,” “duty,” and “obligation” after abandoning the divine law framework that had originally
+      made that language intelligible. Her work helped clear the ground for renewed virtue ethics and for later
+      natural-law debates about action, intention, and moral absolutes.
+    </p>
+<p>
+      Representative works include <em>Modern Moral Philosophy</em>, <em>Intention</em>, and her essays on action,
+      causality, and moral reasoning.
+    </p>
+<div style="text-align:center; margin-top:24px;">
+<a class="link-button" href="https://www.pitt.edu/~mthompso/readings/mmp.pdf" rel="noopener" target="_blank">
+        Modern Moral Philosophy
+      </a>
+</div>
+</section>
+<section class="panel" id="panel-nnl-grisez">
+<button class="back-button" onclick="showPanel('new-natural-law')" type="button">← Back to New Natural Law</button>
+<h2>Germain Grisez</h2>
+<p>
+      Germain Grisez (1929–2018) was one of the founding figures of New Natural Law theory. His work helped
+      shift natural-law argument toward practical reason, basic human goods, moral absolutes, and the analysis
+      of human action and intention. He strongly influenced later New Natural Law thinkers, especially John
+      Finnis and Joseph Boyle.
+    </p>
+<p>
+      Grisez argued that practical reason grasps basic human goods as reasons for action and that moral norms
+      direct choices toward integral human fulfillment rather than arbitrary preference or mere calculation of
+      consequences.
+    </p>
+<p>
+      Representative works include <em>The Way of the Lord Jesus</em>, <em>Beyond the New Theism</em>, and the
+      essay “The First Principle of Practical Reason: A Commentary on the Summa Theologiae, 1-2, Question 94,
+      Article 2.”
+    </p>
+</section>
+<section class="panel" id="panel-nnl-finnis">
+<button class="back-button" onclick="showPanel('new-natural-law')" type="button">← Back to New Natural Law</button>
+<h2>John Finnis</h2>
+<p>
+      John Finnis (born 1940) is one of the most important contemporary defenders of New Natural Law theory.
+      He developed a systematic account of basic human goods, practical reasonableness, natural rights, law,
+      authority, and the common good.
+    </p>
+<p>
+      Finnis is especially known for arguing that the basic goods are self-evident starting points for practical
+      reason. He also brought New Natural Law theory into jurisprudence, political theory, and debates about
+      rights, justice, and legal authority.
+    </p>
+<p>
+      Representative works include <em>Natural Law and Natural Rights</em>, <em>Fundamentals of Ethics</em>,
+      <em>Aquinas: Moral, Political, and Legal Theory</em>, and his collected essays.
+    </p>
+</section>
+<section class="panel" id="panel-nnl-boyle">
+<button class="back-button" onclick="showPanel('new-natural-law')" type="button">← Back to New Natural Law</button>
+<h2>Joseph Boyle</h2>
+<p>
+      Joseph Boyle is a major contributor to New Natural Law theory, especially in the areas of moral action,
+      intention, conscience, cooperation with evil, and applied moral theology. He often worked in close
+      conversation with Germain Grisez and John Finnis.
+    </p>
+<p>
+      Boyle’s work helped develop the New Natural Law analysis of human action: what is chosen, what is intended,
+      and how moral norms apply to difficult cases involving medicine, politics, violence, and cooperation.
+    </p>
+<p>
+      Representative works include essays collected in <em>Natural Law Ethics in Theory and Practice</em>, as well
+      as collaborative work with Grisez and Finnis on nuclear deterrence, moral absolutes, and intention.
+    </p>
+</section>
+<section class="panel" id="panel-nnl-george">
+<button class="back-button" onclick="showPanel('new-natural-law')" type="button">← Back to New Natural Law</button>
+<h2>Robert P. George</h2>
+<p>
+      Robert P. George (born 1955) is an American legal scholar and political philosopher associated with the
+      New Natural Law tradition. He is known for applying natural-law reasoning to constitutional law, religious
+      liberty, marriage, human dignity, conscience, and public moral argument.
+    </p>
+<p>
+      George helped bring New Natural Law theory into contemporary legal and political debates. His work often
+      argues that law is not morally neutral and that public reason can identify basic goods and moral norms
+      without reducing ethics to mere preference or utility.
+    </p>
+<p>
+      Representative works include <em>Making Men Moral</em>, <em>In Defense of Natural Law</em>, <em>Conscience and Its Enemies</em>,
+      and, with Patrick Lee, <em>Body-Self Dualism in Contemporary Ethics and Politics</em>.
+    </p>
+</section>
+<section class="panel" id="panel-nnl-may">
+<button class="back-button" onclick="showPanel('new-natural-law')" type="button">← Back to New Natural Law</button>
+<h2>William E. May</h2>
+<p>
+      William E. May (1928–2014) was an American Catholic moral theologian associated with New Natural Law
+      theory and Catholic moral theology. He wrote extensively on moral absolutes, conscience, marriage,
+      sexuality, bioethics, and the relationship between natural law and Christian moral teaching.
+    </p>
+<p>
+      May helped present New Natural Law themes in moral theology, especially the idea that moral norms protect
+      basic human goods and that some choices are always wrong because of the kind of action chosen.
+    </p>
+<p>
+      Representative works include <em>An Introduction to Moral Theology</em>, <em>Catholic Bioethics and the Gift of Human Life</em>,
+      and writings on marriage, conscience, and moral absolutes.
+    </p>
+</section>
+<section class="panel" id="panel-knowing-moral-law">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Knowing the Moral Law</h2>
+<p>
+      Knowing the Moral Law text
+    </p>
+</section>
+<section class="panel" id="panel-moral-law-1">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Moral Law 1</h2>
+<p>
+      Moral Law 1 text
+    </p>
+</section>
+<section class="panel" id="panel-moral-law-2">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Moral Law 2</h2>
+<p>
+      Moral Law 2 text
+    </p>
+</section>
+<section class="panel" id="panel-moral-law-3">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Moral Law 3</h2>
+<p>
+      Moral Law 3 text
+    </p>
+</section>
+<section class="panel" id="panel-moral-law-4">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Moral Law 4</h2>
+<p>
+      Moral Law 4 text
+    </p>
+</section>
+<section class="panel" id="panel-moral-law-5">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Moral Law 5</h2>
+<p>
+      Moral Law 5 text
+    </p>
+</section>
+<section class="panel" id="panel-moral-law-6">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Moral Law 6</h2>
+<p>
+      Moral Law 6 text
+    </p>
+</section>
+<section class="panel" id="panel-moral-law-7">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Moral Law 7</h2>
+<p>
+      Moral Law 7 text
+    </p>
+</section>
+<section class="panel" id="panel-moral-law-8">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Moral Law 8</h2>
+<p>
+      Moral Law 8 text
+    </p>
+</section>
+<section class="panel" id="panel-moral-law-9">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Moral Law 9</h2>
+<p>
+      Moral Law 9 text
+    </p>
+</section>
+<section class="panel" id="panel-moral-law-10">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Moral Law 10</h2>
+<p>
+      Moral Law 10 text
+    </p>
+</section>
+<section class="panel" id="panel-redemption">
+<button class="back-button" onclick="showPanel('moral-law')" type="button">← Back to The Moral Law</button>
+<h2>Redemption</h2>
+<p>
+      Redemption text
+    </p>
+</section>
+<section class="panel" id="panel-akrasia">
+<button class="back-button" onclick="showPanel(\'evil\')" type="button">← Back to Evil</button>
+<h2>Akrasia</h2>
+<p>
+      Akrasia, a weak will, or philosophical incontinence, is the phenomenon when people report
+      “I knew it was wrong but I did it anyway.”
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('akrasia-socrates')" type="button">
+<span class="small">Thinker</span>
+<span class="label">Socrates and the Meno</span>
+</button>
+<button class="choice" onclick="showPanel('akrasia-aristotle')" type="button">
+<span class="small">Thinker</span>
+<span class="label">Aristotle and the Drunk</span>
+</button>
+<button class="choice" onclick="showPanel('akrasia-augustine')" type="button">
+<span class="small">Thinker</span>
+<span class="label">Augustine and the Pears</span>
+</button>
+<button class="choice" onclick="showPanel('akrasia-aquinas')" type="button">
+<span class="small">Thinker</span>
+<span class="label">Aquinas</span>
+</button>
+<button class="choice" onclick="showPanel('akrasia-calvin')" type="button">
+<span class="small">Thinker</span>
+<span class="label">Calvin</span>
+</button>
+<button class="choice" onclick="showPanel('akrasia-bavinck')" type="button">
+<span class="small">Thinker</span>
+<span class="label">Bavinck</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-akrasia-socrates">
+<button class="back-button" onclick="showPanel(\'akrasia\')" type="button">← Back to Akrasia</button>
+<h2>Socrates and the Meno</h2>
+<p>
+      Socrates lived approximately 470–399 BC in Athens. He did not leave writings of his own, but he appears
+      as the central philosophical figure in Plato’s dialogues, including the <em>Meno</em>.
+    </p>
+<p>
+      Socrates convinces Meno that no one knowingly does evil. This means that when a person says,
+      “I knew it was wrong,” that person is either deceiving himself or deceiving us. If he did not
+      want to do what he did at that moment, then he would not have done it. At that moment, he wanted it.
+      But then when the consequences came out, he regretted it.
+    </p>
+<p>
+      To know oneself requires being honest that you wanted to do what you did. This raises a problem:
+      how can I ever become virtuous? Socrates at first says that virtue is knowledge, but then later
+      admits we cannot teach virtue. This is a hopeless view.
+    </p>
+</section>
+<section class="panel" id="panel-akrasia-aristotle">
+<button class="back-button" onclick="showPanel(\'akrasia\')" type="button">← Back to Akrasia</button>
+<h2>Aristotle and the Drunk</h2>
+<p>
+      Aristotle lived from 384–322 BC. He was a student of Plato, tutor of Alexander the Great, and the author
+      of major works on ethics, politics, logic, metaphysics, biology, and rhetoric.
+    </p>
+<p>
+      Aristotle says that Socrates is technically right, but what we are describing in akrasia is like a drunk
+      reciting the verses of Empedocles. It looks like he knows them, but he does not know what he is saying;
+      if you were to ask, he could not explain what he is saying.
+    </p>
+<p>
+      That is what happens to us when we say, “I knew it was wrong.” We are admitting that we do not understand
+      what is good or what choices to make.
+    </p>
+</section>
+<section class="panel" id="panel-akrasia-augustine">
+<button class="back-button" onclick="showPanel(\'akrasia\')" type="button">← Back to Akrasia</button>
+<h2>Augustine and the Pears</h2>
+<p>
+      Augustine of Hippo lived from 354–430 AD. He was a bishop, theologian, and philosopher whose major works
+      include <em>Confessions</em>, <em>City of God</em>, and <em>On the Trinity</em>.
+    </p>
+<p>
+      Augustine says that he and his friends stole pears, knowing it was a violation of the law, for the thrill
+      of it. He sees this as proof of the inner struggle with sin: we are aware of God’s laws, but we do not
+      want to do them. We want to be our own law.
+    </p>
+<p>
+      This is because we do not love God but instead love something else. Augustine’s solution is that we must
+      be regenerated by the Holy Spirit and saved by grace through faith in Christ.
+    </p>
+</section>
+<section class="panel" id="panel-akrasia-aquinas">
+<button class="back-button" onclick="showPanel(\'akrasia\')" type="button">← Back to Akrasia</button>
+<h2>Aquinas</h2>
+<p>
+      Thomas Aquinas lived from 1225–1274. He was a Dominican theologian and philosopher whose major works
+      include the <em>Summa Theologiae</em> and <em>Summa contra Gentiles</em>.
+    </p>
+<p>
+      Aquinas analyzes akrasia as a problem of universals and particulars. When we say, “I know it was wrong,”
+      we are admitting that although we knew a universal command like “do not steal,” we did not understand
+      how it applies to us in this situation.
+    </p>
+</section>
+<section class="panel" id="panel-akrasia-calvin">
+<button class="back-button" onclick="showPanel(\'akrasia\')" type="button">← Back to Akrasia</button>
+<h2>Calvin</h2>
+<p>
+      John Calvin lived from 1509–1564. He was a Reformation theologian and pastor in Geneva and the author of
+      the <em>Institutes of the Christian Religion</em>.
+    </p>
+<p>
+      Calvin describes total depravity: we are born into a world under the wrath and curse of God. We cannot will
+      anything good because we do not will for the love of God but for our fallen self. Therefore, even what looks
+      externally like good deeds is internally done out of sin.
+    </p>
+<p>
+      When a person reports, “I knew it was wrong,” that person is seeing this tension but is also powerless to
+      change himself. The only solution to total depravity is regeneration, being born again. This is done by the
+      Holy Spirit and cannot be resisted because it is not offered as an option to choose but is a change of the
+      heart that does the choosing.
+    </p>
+</section>
+<section class="panel" id="panel-akrasia-bavinck">
+<button class="back-button" onclick="showPanel(\'akrasia\')" type="button">← Back to Akrasia</button>
+<h2>Bavinck</h2>
+<p>
+      Herman Bavinck lived from 1854–1921. He was a Dutch Reformed theologian whose major works include
+      <em>Reformed Dogmatics</em> and <em>Our Reasonable Faith</em>.
+    </p>
+<p>
+      Bavinck articulated the larger and narrower aspects of human nature. The larger aspect of human nature is
+      that humans are a body/soul unity that is finite, temporal, and changeable in being, wisdom, power,
+      holiness, justice, goodness, and truth. This aspect of the image of God is never lost. Humans are always
+      finite, temporal, and changeable and always have these categories even if they do not actually achieve them:
+      they think they are wise, but they are fools.
+    </p>
+<p>
+      The narrower aspect of human nature is knowledge, holiness, and righteousness. These were all lost in the
+      fall and can only be regained by regeneration, conversion, justification, and sanctification.
+    </p>
+</section>
+<section class="panel" id="panel-ignorance-of-evil">
+<button class="back-button" onclick="showPanel('evil')" type="button">← Back to Evil</button>
+<h2>Socrates vs Paul</h2>
+<p>
+      Socrates explains wrongdoing as ignorance. On the Socratic view, no one knowingly does evil.
+      If a person chooses evil, then he must not truly understand what is good. The problem is located
+      mainly in the intellect: if we knew the good clearly, we would choose it.
+    </p>
+<p>
+      Paul’s account in Romans 7 is deeper. Paul says that the law reveals what is good, but sin uses
+      the commandment to expose and stir up inward rebellion. The person may agree that the law is good
+      and yet find another principle at work within himself, pulling him toward what he hates.
+    </p>
+<p>
+      Socrates treats evil as ignorance that can be overcome by knowledge. Paul teaches that sin is not
+      merely a lack of information. It is a corrupt power in fallen human nature. We need more than instruction;
+      we need deliverance, grace, and renewal by the Spirit.
+    </p>
+<p>
+      Socrates asks, “Do you really know the good?” Paul asks, “Even when you know the good, who will deliver
+      you from this body of death?”
+    </p>
+</section>
+<section class="panel" id="panel-moral-presuppositions">
+<button class="back-button" onclick="showPanel('good')" type="button">← Back to Good</button>
+<h2>Moral Presuppositions</h2>
+<div class="definition">
+<p>
+        Morality presupposes:
+      </p>
+<p>
+<strong>1) A metaphysical absolute.</strong> If nothing is absolute, or All is One,
+        then there is no fundamental distinction between good and evil. Morality presupposes
+        that not all is one, that only God is eternal and everything else is creation. God is
+        the metaphysical absolute that provides the standard for morality. Consider the
+        implications of pantheism, polytheism, naturalism and secular humanism. Is God therefore
+        necessary for morality?
+      </p>
+<p>
+<strong>2) Personal immortality.</strong> If there is no personal immortality there can
+        be no morality. If there is no personal continuity there can be no future and no purpose,
+        and if there is no purpose there can be no goal or good.
+      </p>
+<p>
+<strong>3) Freedom.</strong> If there is no freedom there can be no morality. The good
+        as the end in itself is achieved through choice. If there is no freedom there can be no
+        choice and therefore the good is not achievable.
+      </p>
+<p>
+<strong>4) Clarity.</strong> If there is no clarity there can be no morality. If it is
+        not clear what is good then one cannot be held accountable for pursuing the good. If
+        there is no clarity then there is skepticism and if there is skepticism then there is
+        relativism.
+      </p>
+<p>
+<strong>5) Rationality.</strong> If there is no rationality then there can be no clarity
+        and therefore no morality. What is clear could not possibly be otherwise. Its contradiction
+        is logically impossible. One has to stop thinking to avoid seeing what is clear.
+      </p>
+</div>
+</section>
+<section class="panel" id="panel-connotative-definition">
+<button class="back-button" onclick="showPanel('the-good')" type="button">← Back to The Good</button>
+<h2>Connotative Definition</h2>
+<p>
+      A connotative definition is one that gives a description of the properties a thing must have
+      to be on a list. A connotative definition of the good gives the properties that whatever is
+      good must have. They are:
+    </p>
+<div class="definition">
+<p>
+<strong>1)</strong> The good is the moral absolute. It is not relative to other moral judgments
+        but other moral judgments (about virtue and happiness) are relative to the good.
+      </p>
+<p>
+<strong>2)</strong> The good is the source of unity within a person, between two persons, and
+        between groups of persons.
+      </p>
+<p>
+<strong>3)</strong> The good is based on human nature, which is based on what is real (or eternal).
+        So the moral absolute (the good) is based on the metaphysical absolute (the real).
+      </p>
+<p>
+<strong>4)</strong> The good must be easily knowable if there is to be moral responsibility.
+      </p>
+</div>
+<div class="definition">
+<p>
+        We can work toward a denotative definition that names the good by looking at characteristics
+        that whatever is good must have. We can use these to identify what is the good.
+      </p>
+<p>
+        Whatever is good must be <strong>continuing</strong> (it is something that goes with you
+        throughout your life and the next. For example, money is not continuing—you can’t take it
+        with you); <strong>inalienable</strong> (it cannot be taken from you. Again, money can be
+        taken from you); <strong>comprehensive</strong> (it applies to all aspects of human life);
+        <strong>inexhaustible</strong> (it cannot run out; you can always get more);
+        <strong>corporate</strong> (it cannot be achieved alone but must be achieved in cooperation
+        with others); <strong>communal</strong> (the more you share of it the more there is);
+        <strong>cumulative</strong> (it builds over your lifetime and over the generations of human
+        history); <strong>fulfilling</strong> (it is satisfying and what gives life meaning, which is
+        our deepest need); <strong>ultimate</strong> (it is of highest significance and importance
+        and therefore must be related to what is infinite and eternal); and
+        <strong>transformative</strong> (it must have power; it gives you power over yourself).
+      </p>
+<p>
+        A hint: does anything other than Knowledge fit this description?
+      </p>
+<p>
+        Problem: but the good isn’t simply “knowledge.” What must be added to the sentence
+        “the good is the knowledge of . . .” for the complete answer?
+      </p>
+</div>
+</section>
+<section class="panel" id="panel-denotative-definition">
+<button class="back-button" onclick="showPanel('the-good')" type="button">← Back to The Good</button>
+<h2>Denotative Definition</h2>
+<p>
+      A denotative definition is one that gives a list of the things being defined. For example,
+      a denotative definition of voters would simply be a list of the names of voters. A denotative
+      definition of the good is one that names the good. Any rational being who makes a moral choice
+      should be able to give a denotative definition of what is good. Can you?
+    </p>
+</section>
+<section class="panel" id="panel-are-you-good">
+<button class="back-button" onclick="showPanel('the-good')" type="button">← Back to The Good</button>
+<h2>Are you good?</h2>
+<p>
+      Are you a good person? If you said yes, then you should be able to tell us what is the good. Can you?
+      Your answer can't contain "the good" or any related word (best, better, help, improve, love) because doing
+      that doesn't actually define the good. Telling us that "the good is when you love others so they come better"
+      is like saying "the good is when you love others so they become more good." But what is that? What makes us better?
+      Let's ask again, are you good?
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('are-you-good-yes')" type="button">
+<span class="small">Answer</span>
+<span class="label">Yes</span>
+</button>
+<button class="choice" onclick="showPanel('are-you-good-no')" type="button">
+<span class="small">Answer</span>
+<span class="label">No</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-are-you-good-yes">
+<button class="back-button" onclick="showPanel('are-you-good')" type="button">← Back to Are you good?</button>
+<h2>So you think you are good?</h2>
+<p>
+      Have you ever done anything wrong? Have you ever told a lie, or cheated, or stolen or hurt someone?
+      If you're good why did you do that?
+    </p>
+<p>
+      The answer can't be "I'm only human" because you said you are good. Nor can it be "I'm doing my best"
+      or "I'm limited/finite"—neither of those force you to lie, cheat, steal, and hurt people. Nor can you
+      ease your conscience and convince us by saying "I do more good things than evil things." You told us you are good.
+    </p>
+<p>
+      And if you are good why do you do anything evil at all? Do you want to stop doing evil? If so, the first
+      step is to be honest with yourself and with us. If you are in self-deception telling yourself you are good
+      even while you admit to doing some evil things, and if you are in self-justification trying to convince us
+      that you are good even while confessing to doing some evil things, you don't know yourself and you can't get
+      help for your evil actions.
+    </p>
+<p>
+      Maybe you should go back to the "no" button.
+    </p>
+</section>
+<section class="panel" id="panel-are-you-good-no">
+<button class="back-button" onclick="showPanel('are-you-good')" type="button">← Back to Are you good?</button>
+<h2>Knowing Yourself</h2>
+<p>
+      Ethics isn't just a study of what other people should do. It is the study of a very personal problem.
+      At least you know yourself enough to know that you aren't a good person. You've done some evil things.
+      This is called "lacking integrity." If you had integrity you would be whole, consistent, without division.
+    </p>
+<p>
+      But as it is, you want to do good but admit you do evil sometimes. You're inconsistent in what you believe,
+      what you feel, and what you do. Would you want to be around a person like that? Would you trust them? Or we
+      can flip it: do you want to be around yourself? Do you trust yourself?
+    </p>
+<p>
+      Here's the problem: if you lack integrity, are inconsistent, why should we listen to anything you have to say?
+      Why should you listen to anything you have to say? This is a very serious problem. It is called the problem of redemption.
+    </p>
+<p>
+      A complete study of ethics must look at the competing theories of redemption and find the true one which has the
+      power to change you from being someone who does evil things to being someone who does good things.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('theories-of-redemption')" type="button">
+<span class="small">Next Branch</span>
+<span class="label">Theories of Redemption</span>
+</button>
+</div>
+</section>
+<section class="panel" id="panel-theories-of-redemption">
+<button class="back-button" onclick="showPanel('are-you-good-no')" type="button">← Back to Knowing Yourself</button>
+<h2>Theories of Redemption</h2>
+<p>
+      Redemption means "to purchase back." For example, you "redeem" an item at a pawn shop by paying the price to get it back.
+      The problem of redemption asks, "how can a person who has gone over to doing some evil things be redeemed back to doing what is good?"
+    </p>
+<p>
+      There are some standard answers that we will explore in Ethics. There are those that say you can redeem yourself through education,
+      empathy, or willpower. And then there are those who say you cannot redeem yourself, someone else must redeem you. It must be someone
+      who has the power to redeem.
+    </p>
+</section>
+<section class="panel" id="panel-normative-ethics">
+<button class="back-button" onclick="showPanel('the-good')" type="button">← Back to The Good</button>
+<h2>Normative Ethics</h2>
+<p>
+      Normative ethics studies what actions are right or wrong and what standards determine moral obligation.
+      It asks what we <em>ought</em> to do, what virtues we should cultivate, what duties bind us, and what kind
+      of life we should seek.
+    </p>
+<p>
+      Major approaches include <strong>virtue ethics</strong>, associated with <strong>Aristotle</strong> (384–322 BC),
+      who taught at the <strong>Lyceum</strong> in Athens and founded the <strong>Peripatetic school</strong>. Aristotle
+      argued that the good life is achieved through cultivating virtues ordered toward human flourishing.
+    </p>
+<p>
+<strong>Deontology</strong> is associated especially with <strong>Immanuel Kant</strong> (1724–1804), who taught at
+      the <strong>University of Königsberg</strong> and belongs to the <strong>Enlightenment rationalist tradition</strong>.
+      Kant argued that moral duties are grounded in reason and expressed through universal moral law.
+    </p>
+<p>
+<strong>Consequentialism</strong> and <strong>utilitarianism</strong> are associated with <strong>Jeremy Bentham</strong>
+      (1748–1832), who worked in British reform and legal circles, and <strong>John Stuart Mill</strong> (1806–1873),
+      connected with British liberal and utilitarian thought. They argued that actions are judged by their
+      consequences, especially by whether they maximize happiness or utility.
+    </p>
+</section>
+<section class="panel" id="panel-metaethics">
+<button class="back-button" onclick="showPanel('the-good')" type="button">← Back to The Good</button>
+<h2>Metaethics</h2>
+<p>
+      Metaethics studies the <em>nature</em> of moral claims. It asks what we mean when we say something is
+      “good,” whether moral statements are true or false, whether moral facts exist, and how moral knowledge
+      is possible.
+    </p>
+<p>
+      Important contributors include <strong>G. E. Moore</strong> (1873–1958), who taught at <strong>Cambridge</strong>
+      and helped shape <strong>analytic philosophy</strong>. Moore argued that “good” is simple and not reducible
+      to natural properties. <strong>A. J. Ayer</strong> (1910–1989), associated with <strong>Oxford</strong> and
+      <strong>University College London</strong>, worked in <strong>logical positivism</strong> and denied that moral
+      statements are truth-apt in the ordinary factual sense.
+    </p>
+<p>
+<strong>R. M. Hare</strong> (1919–2002), who taught at <strong>Oxford</strong>, developed <strong>universal
+      prescriptivism</strong>, treating moral language as a form of universal command. <strong>J. L. Mackie</strong>
+      (1917–1981), an Australian philosopher who taught at <strong>Oxford</strong>, defended <strong>error theory</strong>,
+      arguing that ordinary moral claims aim at objective truth but fail because there are no objective moral facts.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('cognitivism')" type="button"><span class="small">Metaethical View</span><span class="label">Cognitivism</span></button>
+<button class="choice" onclick="showPanel('non-cognitivism')" type="button"><span class="small">Metaethical View</span><span class="label">Non-Cognitivism</span></button>
+<button class="choice" onclick="showPanel('moral-ontology')" type="button"><span class="small">Metaethical Question</span><span class="label">Moral Ontology</span></button>
+</div>
+</section>
+<section class="panel" id="panel-applied-ethics">
+<button class="back-button" onclick="showPanel('the-good')" type="button">← Back to The Good</button>
+<h2>Applied Ethics</h2>
+<p>
+      Applied ethics examines how moral principles are used in concrete situations such as law, medicine,
+      business, politics, technology, environmental policy, sexual ethics, and the ethics of war and peace.
+      It moves from general moral theory to particular cases.
+    </p>
+<p>
+      Representative figures include <strong>Peter Singer</strong> (b. 1946), who has taught at <strong>Princeton
+      University</strong> and works in the <strong>utilitarian</strong> and <strong>effective altruist</strong> traditions,
+      applying moral reasoning to poverty, animal ethics, and bioethics.
+    </p>
+<p>
+<strong>John Rawls</strong> (1921–2002), who taught at <strong>Harvard University</strong>, developed a form of
+      <strong>political liberalism</strong> and a theory of justice for social institutions. <strong>Alasdair
+      MacIntyre</strong> (b. 1929), long associated with the <strong>University of Notre Dame</strong>, is a
+      <strong>neo-Aristotelian virtue ethicist</strong> who critiques modern moral fragmentation and argues for
+      virtue, tradition, and practices.
+    </p>
+</section>
+<section class="panel" id="panel-cognitivism">
+<button class="back-button" onclick="showPanel('metaethics')" type="button">← Back to Metaethics</button>
+<h2>Cognitivism</h2>
+<p>
+      Cognitivism is the view that moral statements express beliefs or judgments that can be true or false.
+      When someone says, “Murder is wrong,” the statement is not merely a feeling, command, or expression of
+      approval. It is the sort of claim that can be evaluated as true or false.
+    </p>
+<p>
+      Important cognitivist traditions include <strong>natural law</strong>, associated with <strong>Thomas Aquinas</strong>
+      (1225–1274), who taught at the <strong>University of Paris</strong> and worked in <strong>Scholasticism</strong>;
+      <strong>deontological rationalism</strong>, associated with <strong>Immanuel Kant</strong> (1724–1804) at the
+      <strong>University of Königsberg</strong>; and <strong>analytic moral realism</strong>, associated with
+      <strong>G. E. Moore</strong> (1873–1958) at <strong>Cambridge</strong>.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('moral-realism')" type="button"><span class="small">Cognitivist View</span><span class="label">Moral Realism</span></button>
+<button class="choice" onclick="showPanel('moral-anti-realism')" type="button"><span class="small">Cognitivist View</span><span class="label">Moral Anti-Realism</span></button>
+</div>
+</section>
+<section class="panel" id="panel-moral-realism">
+<button class="back-button" onclick="showPanel('cognitivism')" type="button">← Back to Cognitivism</button>
+<h2>Moral Realism</h2>
+<p>
+      Moral realism is the view that moral claims can be true or false and that at least some moral claims
+      are true because there are real moral facts or properties. On this view, morality is not merely invented
+      by individual preference, social custom, or emotion.
+    </p>
+<p>
+      Classical representatives include <strong>Plato</strong> (c. 428–348 BC), founder of the <strong>Academy</strong>
+      in Athens and the central figure in <strong>Platonism</strong>, who located moral reality in eternal Forms such
+      as the Good. <strong>Aristotle</strong> (384–322 BC), founder of the <strong>Lyceum</strong> and the
+      <strong>Peripatetic school</strong>, grounded ethics in human nature, virtue, and the final end of human life.
+    </p>
+<p>
+<strong>Thomas Aquinas</strong> (1225–1274), who taught at the <strong>University of Paris</strong>, developed a
+      <strong>Scholastic natural law</strong> account in which moral truth is grounded in God’s eternal law and
+      known through reason as it discerns human nature and its proper end.
+    </p>
+</section>
+<section class="panel" id="panel-moral-anti-realism">
+<button class="back-button" onclick="showPanel('cognitivism')" type="button">← Back to Cognitivism</button>
+<h2>Moral Anti-Realism</h2>
+<p>
+      Moral anti-realism denies that morality exists as objective moral facts independent of human attitudes,
+      conventions, responses, or interpretive frameworks. It can still allow that moral language is meaningful,
+      but it does not treat moral properties as mind-independent realities in the realist sense.
+    </p>
+<p>
+<strong>Ideal observer theory</strong> is associated with <strong>Roderick Firth</strong> (1917–1987), who taught at
+      <strong>Harvard University</strong> and worked in <strong>analytic ethics</strong>. It says moral truth is what would
+      be approved by a fully informed, impartial, rational observer.
+    </p>
+<p>
+<strong>Divine command theory</strong>, when treated as a voluntarist metaethical view, is often associated with
+      <strong>William of Ockham</strong> (c. 1287–1347), connected with <strong>Oxford</strong> and the
+      <strong>nominalist</strong> tradition. It locates rightness in divine willing or commanding rather than in a moral
+      property independent of command.
+    </p>
+<p>
+<strong>Error theory</strong> is associated especially with <strong>J. L. Mackie</strong> (1917–1981), who taught at
+      <strong>Oxford</strong>. It says moral statements aim to state objective truths, but all such claims are false because
+      no objective moral facts exist. <strong>Non-realist cognitivism</strong> holds that moral claims can be true or false,
+      but their truth depends on standards, constructions, idealized attitudes, or internal norms rather than realist
+      moral facts.
+    </p>
+</section>
+<section class="panel" id="panel-non-cognitivism">
+<button class="back-button" onclick="showPanel('metaethics')" type="button">← Back to Metaethics</button>
+<h2>Non-Cognitivism</h2>
+<p>
+      Non-cognitivism is the view that moral statements do not primarily state beliefs that are true or false.
+      Instead, moral language expresses attitudes, emotions, prescriptions, approvals, disapprovals, or commands.
+    </p>
+<p>
+<strong>Emotivism</strong> is associated with <strong>A. J. Ayer</strong> (1910–1989), who worked at
+      <strong>Oxford</strong> and <strong>University College London</strong> in the tradition of <strong>logical positivism</strong>,
+      and with <strong>C. L. Stevenson</strong> (1908–1979), who taught at <strong>Yale University</strong> and developed
+      emotivism in American analytic ethics. Emotivism says moral statements express feelings or attitudes; to say
+      “stealing is wrong” is something like expressing disapproval of stealing.
+    </p>
+<p>
+<strong>Universal prescriptivism</strong> is associated with <strong>R. M. Hare</strong> (1919–2002), who taught at
+      <strong>Oxford</strong>. It says moral statements function like prescriptions or commands that the speaker is committed
+      to applying consistently in relevantly similar cases.
+    </p>
+</section>
+<section class="panel" id="panel-moral-ontology">
+<button class="back-button" onclick="showPanel('metaethics')" type="button">← Back to Metaethics</button>
+<h2>Moral Ontology</h2>
+<p>
+      Moral ontology studies what kind of reality morality has. It asks whether moral facts, duties, values,
+      or properties exist, and if they do, what they are grounded in.
+    </p>
+<p>
+      Important contributors include <strong>Friedrich Nietzsche</strong> (1844–1900), who was trained in classical
+      philology and held a chair at the <strong>University of Basel</strong>, and whose <strong>genealogical critique of
+      morality</strong> examined the historical emergence of moral values. <strong>Gilbert Harman</strong> (1938–2021),
+      who taught at <strong>Princeton University</strong>, contributed to modern debates about moral explanation and
+      relativism. <strong>J. L. Mackie</strong> (1917–1981), associated with <strong>Oxford</strong>, is central to
+      <strong>error theory</strong>.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('moral-universalism')" type="button"><span class="small">Moral Ontology</span><span class="label">Moral Universalism</span></button>
+<button class="choice" onclick="showPanel('moral-relativism')" type="button"><span class="small">Moral Ontology</span><span class="label">Moral Relativism</span></button>
+<button class="choice" onclick="showPanel('moral-nihilism')" type="button"><span class="small">Moral Ontology</span><span class="label">Moral Nihilism</span></button>
+</div>
+</section>
+<section class="panel" id="panel-moral-universalism">
+<button class="back-button" onclick="showPanel('moral-ontology')" type="button">← Back to Moral Ontology</button>
+<h2>Moral Universalism</h2>
+<p>
+      Moral universalism is the view that at least some moral truths apply to all persons, in all cultures,
+      at all times. It denies that morality is merely local preference or social custom.
+    </p>
+<p>
+      Representatives include <strong>Thomas Aquinas</strong> (1225–1274), who taught at the <strong>University of Paris</strong>
+      and developed <strong>Scholastic natural law</strong>, and <strong>Immanuel Kant</strong> (1724–1804), who taught at the
+      <strong>University of Königsberg</strong> and defended universal moral duties grounded in reason. Both differ sharply
+      in metaphysics, but both defend moral principles that are not merely local or cultural.
+    </p>
+</section>
+<section class="panel" id="panel-moral-relativism">
+<button class="back-button" onclick="showPanel('moral-ontology')" type="button">← Back to Moral Ontology</button>
+<h2>Moral Relativism</h2>
+<p>
+      Moral relativism is the view that moral truth is relative to a person, society, culture, historical period,
+      or framework. A moral claim may be treated as true for one group and not true for another because moral standards
+      are determined by differing contexts.
+    </p>
+<p>
+      A classical source is <strong>Protagoras</strong> (c. 490–420 BC), a Greek <strong>Sophist</strong> associated with the
+      claim that “man is the measure.” A modern figure often connected to relativizing moral and truth claims is
+      <strong>Michel Foucault</strong> (1926–1984), who taught at the <strong>Collège de France</strong> and worked in
+      <strong>post-structuralism</strong>, analyzing truth and morality in relation to power, institutions, and historical
+      formation.
+    </p>
+</section>
+<section class="panel" id="panel-moral-nihilism">
+<button class="back-button" onclick="showPanel('moral-ontology')" type="button">← Back to Moral Ontology</button>
+<h2>Moral Nihilism</h2>
+<p>
+      Moral nihilism is the view that there are no moral facts, no real moral duties, and no objective moral values.
+      On this view, nothing is truly good or evil, right or wrong, in the moral sense.
+    </p>
+<p>
+<strong>Friedrich Nietzsche</strong> (1844–1900), who held a chair at the <strong>University of Basel</strong>, is often
+      associated with the crisis of values after the “death of God” and with a <strong>genealogical critique</strong> of
+      morality. <strong>J. L. Mackie</strong> (1917–1981), associated with <strong>Oxford</strong>, defended <strong>error theory</strong>,
+      arguing that ordinary moral claims presuppose objective values, but such values do not exist.
+    </p>
+</section>
+</div>
+<script>
+function showHome(){
+  document.getElementById('home').style.display = 'block';
+  document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function showPanel(name){
+  document.getElementById('home').style.display = 'none';
+  document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+  const panel = document.getElementById('panel-' + name);
+  if(panel) panel.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+<section class="panel" id="panel-vices">
+<button class="back-button" onclick="showPanel('virtue')" type="button">← Back</button>
+<h2>Vices</h2>
+<p>
+      Vices are settled patterns of desire and action that take us away from the good.
+    </p>
+<div class="choice-grid">
+<button class="choice" onclick="showPanel('pride')" type="button">
+<span class="small">Deadly Sin</span>
+<span class="label">Pride</span>
+</button>
+<button class="choice" onclick="showPanel('greed')" type="button">
+<span class="small">Deadly Sin</span>
+<span class="label">Greed</span>
+</button>
+<button class="choice" onclick="showPanel('lust')" type="button">
+<span class="small">Deadly Sin</span>
+<span class="label">Lust</span>
+</button>
+<button class="choice" onclick="showPanel('envy')" type="button">
+<span class="small">Deadly Sin</span>
+<span class="label">Envy</span>
+</button>
+<button class="choice" onclick="showPanel('gluttony')" type="button">
+<span class="small">Deadly Sin</span>
+<span class="label">Gluttony</span>
+</button>
+<button class="choice" onclick="showPanel('wrath')" type="button">
+<span class="small">Deadly Sin</span>
+<span class="label">Wrath</span>
+</button>
+<button class="choice" onclick="showPanel('sloth')" type="button">
+<span class="small">Deadly Sin</span>
+<span class="label">Sloth</span>
+</button>
+</div>
+</section>
+</body>
+</html>
