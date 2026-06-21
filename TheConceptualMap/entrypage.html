@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Conceptual Map of Philosophy</title>
+<style>
+  :root{
+    --bg:#f6f1da;
+    --paper:#fffdf5;
+    --ink:#2a2619;
+    --muted:#706a55;
+    --accent:#7b6825;
+    --line:#b7aa72;
+    --gold:#c0a94c;
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+    --button:#fff9df;
+    --button-hover:#f5edc4;
+    --border:#ddd1a0;
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    font-family: Georgia, "Times New Roman", serif;
+    background:linear-gradient(180deg, #fffbea 0%, #eee4bb 100%);
+    color:var(--ink);
+  }
+
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:38px 20px 64px;
+  }
+
+  header{
+    text-align:center;
+    margin-bottom:28px;
+  }
+
+  h1{
+    margin:0 0 10px 0;
+    font-size:clamp(2.4rem,5vw,4rem);
+    color:#6f5e22;
+    letter-spacing:.02em;
+  }
+
+  .subtitle{
+    color:var(--muted);
+    font-size:clamp(1.2rem,2.6vw,1.8rem);
+    max-width:900px;
+    margin:0 auto;
+    line-height:1.45;
+    font-weight:700;
+  }
+
+  .home-card{
+    width:min(920px,94vw);
+    margin:36px auto 0;
+    background:var(--paper);
+    border:1px solid var(--border);
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    padding:34px 28px 38px;
+    text-align:center;
+  }
+
+  .prompt{
+    display:inline-block;
+    font-size:.86rem;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:#7b6825;
+    background:#fbf3cf;
+    border:1px solid var(--border);
+    padding:7px 12px;
+    border-radius:999px;
+    margin-bottom:16px;
+  }
+
+  .intro{
+    max-width:780px;
+    margin:0 auto 28px;
+    color:#5f5946;
+    font-size:1.08rem;
+    line-height:1.65;
+  }
+
+  .choice-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(240px, 1fr));
+    gap:18px;
+    max-width:820px;
+    margin:0 auto;
+  }
+
+  .three-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(180px, 1fr));
+    gap:18px;
+    max-width:920px;
+    margin:26px auto 0;
+  }
+
+  @media (max-width:760px){
+    .choice-grid,.three-grid{grid-template-columns:1fr}
+  }
+
+  button{
+    -webkit-appearance:none;
+    appearance:none;
+  }
+
+  .choice{
+    min-height:150px;
+    border:2px solid #cfc18a;
+    background:linear-gradient(180deg,#ffffff 0%, var(--button) 100%);
+    border-radius:18px;
+    box-shadow:0 8px 22px rgba(123,104,37,.08);
+    cursor:pointer;
+    font-family:Georgia, "Times New Roman", serif;
+    padding:22px 20px;
+    text-align:center;
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+    color:#3a3218;
+  }
+
+  .choice:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 28px rgba(123,104,37,.14);
+    border-color:var(--accent);
+    background:linear-gradient(180deg,#ffffff 0%, var(--button-hover) 100%);
+  }
+
+  .choice .small{
+    display:block;
+    color:var(--muted);
+    font-size:.9rem;
+    margin-bottom:10px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+  }
+
+  .choice .label{
+    display:block;
+    font-size:1.35rem;
+    line-height:1.25;
+    font-weight:700;
+    color:#6f5e22;
+  }
+
+
+  .page-card{
+    display:none;
+    width:min(980px,94vw);
+    margin:36px auto 0;
+    background:var(--paper);
+    border:1px solid var(--border);
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    padding:34px 30px 40px;
+  }
+
+  .page-card.active{display:block}
+
+  .page-card h2{
+    margin:0 0 18px;
+    color:#6f5e22;
+    font-size:clamp(2rem,4vw,3rem);
+    text-align:center;
+  }
+
+  .page-card h3{
+    margin:26px 0 10px;
+    color:#7b6825;
+    font-size:1.35rem;
+  }
+
+  .page-card p{
+    color:#4b452f;
+    font-size:1.08rem;
+    line-height:1.7;
+    margin:0 0 16px;
+  }
+
+  .key-questions,
+  .law-list,
+  .branch-list{
+    display:grid;
+    gap:12px;
+    margin:18px 0 24px;
+  }
+
+  .key-questions{grid-template-columns:repeat(3,minmax(170px,1fr));}
+  .law-list{grid-template-columns:repeat(3,minmax(190px,1fr));}
+  .branch-list{grid-template-columns:repeat(2,minmax(220px,1fr));}
+
+  @media (max-width:760px){
+    .key-questions,.law-list,.branch-list{grid-template-columns:1fr}
+  }
+
+  .info-box{
+    background:#fff9df;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:16px 18px;
+    color:#3a3218;
+    line-height:1.55;
+  }
+
+  .info-box strong{
+    color:#6f5e22;
+  }
+
+  .back-button{
+    margin:26px auto 0;
+    display:block;
+    border:2px solid #cfc18a;
+    background:linear-gradient(180deg,#ffffff 0%, var(--button) 100%);
+    border-radius:999px;
+    box-shadow:0 8px 22px rgba(123,104,37,.08);
+    cursor:pointer;
+    font-family:Georgia, "Times New Roman", serif;
+    padding:12px 20px;
+    color:#6f5e22;
+    font-weight:700;
+    font-size:1rem;
+  }
+
+  .back-button:hover{
+    background:linear-gradient(180deg,#ffffff 0%, var(--button-hover) 100%);
+    border-color:var(--accent);
+  }
+
+
+  .path-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(180px, 1fr));
+    gap:18px;
+    max-width:920px;
+    margin:28px auto 0;
+  }
+
+  @media (max-width:760px){
+    .path-grid{grid-template-columns:1fr}
+  }
+
+</style>
+<script>
+function showScreen(name) {
+  const home = document.getElementById('home');
+  const target = document.getElementById(name);
+
+  if (!target) {
+    alert("This page has not been added yet: " + name);
+    return;
+  }
+
+  home.style.display = 'none';
+  document.querySelectorAll('.page-card').forEach(page => page.classList.remove('active'));
+  target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showHome() {
+  document.querySelectorAll('.page-card').forEach(page => page.classList.remove('active'));
+  document.getElementById('home').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</head>
+
+<body>
+<div class="wrap">
+  <header>
+    <h1>Conceptual Map of Philosophy</h1>
+    <p class="subtitle">The love of wisdom begins with the first questions.</p>
+  </header>
+
+  <main id="home" class="home-card">
+    <div class="prompt">First Page</div>
+    <p class="intro">
+      Philosophy is the love of wisdom. But what is wisdom, and how do we know if we have it?
+      This map helps you explore the foundational questions of philosophy: what we can know,
+      what is real, and what we ought to do.
+      <br><br>
+      Begin by asking what philosophy is and whether you are wise.
+    </p>
+
+    <div class="choice-grid">
+      <button class="choice" onclick="showScreen('what-is-philosophy')" type="button">
+        <span class="small">First Question</span>
+        <span class="label">What is Philosophy?</span>
+      </button>
+
+      <button class="choice" onclick="showScreen('am-i-wise')" type="button">
+        <span class="small">Self-Examination</span>
+        <span class="label">Am I Wise?</span>
+      </button>
+    </div>
+
+    <div class="three-grid">
+      <button class="choice" onclick="window.location.href='epistemologymap.html'" type="button">
+        <span class="small">What can I know?</span>
+        <span class="label">Epistemology</span>
+      </button>
+
+      <button class="choice" onclick="window.location.href='metaphysicsmap.html'" type="button">
+        <span class="small">What is real?</span>
+        <span class="label">Metaphysics</span>
+      </button>
+
+      <button class="choice" onclick="window.location.href='ethicsmap.html'" type="button">
+        <span class="small">What should I do?</span>
+        <span class="label">Ethics</span>
+      </button>
+    </div>
+  </main>
+
+  <section id="what-is-philosophy" class="page-card">
+    <div class="prompt">First Question</div>
+    <h2>What Is Philosophy?</h2>
+
+    <p>
+      Philosophy is the first discipline of the Academy. It is first because it asks the questions that all other disciplines assume.
+    </p>
+
+    <div class="key-questions">
+      <div class="info-box"><strong>How is knowledge possible?</strong></div>
+      <div class="info-box"><strong>What is real?</strong></div>
+      <div class="info-box"><strong>What is good?</strong></div>
+    </div>
+
+    <p>
+      Physics assumes the material world exists. Psychology assumes the self exists. History assumes something about time. Activist programs assume ideas about justice. Philosophy steps back and asks the deeper questions beneath those assumptions.
+    </p>
+
+    <p>
+      What is material existence? Is there an immaterial soul? Is time linear, or is everything eternal? What is justice? What is a just society?
+    </p>
+
+    <h3>The Love of Wisdom</h3>
+    <p>
+      The word <strong>philosophy</strong> means <strong>“the love of wisdom.”</strong> To be wise is to know what is good and how to live a good life. Wisdom begins with knowing what to love and what to fear.
+    </p>
+
+    <h3>Reason and the Three Acts of the Mind</h3>
+    <p>
+      Philosophy’s method is the use of <strong>Reason</strong> through the <strong>three acts of the mind</strong>.
+    </p>
+
+    <div class="law-list">
+      <div class="info-box"><strong>Identity</strong><br/>A is A.</div>
+      <div class="info-box"><strong>Non-Contradiction</strong><br/>Something cannot both be A and non-A in the same way at the same time.</div>
+      <div class="info-box"><strong>Excluded Middle</strong><br/>Something is either A or non-A.</div>
+    </div>
+
+    <p>
+      We use these laws of thought to perform the three acts of the mind: <strong>concepts</strong>, <strong>judgments</strong>, and <strong>arguments</strong>.
+    </p>
+
+    <div class="law-list">
+      <div class="info-box"><strong>Concepts</strong><br/>Understanding what something is.<br/><em>Example: God is God.</em></div>
+      <div class="info-box"><strong>Judgments</strong><br/>Affirming what is true about something.<br/><em>Example: God is eternal.</em></div>
+      <div class="info-box"><strong>Arguments</strong><br/>Giving reasons to show why something is true.<br/><em>Example: arguments for the existence of God.</em></div>
+    </div>
+
+    <p>
+      The goal of the three acts of the mind is to understand <strong>meaning</strong> and then <strong>truth</strong>. When there is contradiction, meaning is lost. When there is meaning, Reason is being used.
+    </p>
+
+    <h3>The Examined Life</h3>
+    <p>
+      The student of philosophy applies this method by living <strong>the examined life</strong>. Socrates said that “the unexamined life is not worth living.” This means that an unexamined life is less than fully human. Minerals, plants, and animals live unexamined lives. Human beings are distinct because they can examine their presuppositions and use their minds to seek meaning and truth.
+    </p>
+
+    <p>
+      The student of philosophy must first examine himself before applying philosophical examination to others.
+    </p>
+
+    <h3>Philosophical Systems</h3>
+    <p>
+      Philosophers also build <strong>systems</strong>. A philosophical system attempts to explain all areas of human life. These systems are ordered presuppositionally, beginning with the most basic beliefs as foundational.
+    </p>
+
+    <p>
+      Systems are first compared by asking what they say about <strong>knowledge</strong>, <strong>reality</strong>, and <strong>the good</strong>.
+    </p>
+
+    <div class="branch-list">
+      <div class="info-box">Philosophy of law</div>
+      <div class="info-box">Philosophy of education</div>
+      <div class="info-box">Philosophy of art</div>
+      <div class="info-box">Philosophy of politics</div>
+      <div class="info-box">Philosophy of family</div>
+      <div class="info-box">Philosophy of business</div>
+      <div class="info-box">Philosophy of society</div>
+      <div class="info-box">And other “philosophy of” disciplines</div>
+    </div>
+
+    <p>
+      Philosophy, then, is the disciplined love of wisdom through Reason. It examines the foundations of knowledge, reality, and goodness so that human beings may understand meaning, know truth, and live well.
+    </p>
+
+    <button class="back-button" onclick="showHome()" type="button">← Back to First Page</button>
+  </section>
+
+
+  <section id="am-i-wise" class="page-card">
+    <div class="prompt">Self-Examination</div>
+    <h2>Am I Wise?</h2>
+
+    <p>
+      To be wise you must know the <strong>highest authority</strong>, you must know what is <strong>eternal</strong> — the <strong>highest being</strong> — and you must know the <strong>highest good</strong>.
+    </p>
+
+    <p>
+      Follow these paths to test yourself on each one:
+    </p>
+
+    <div class="path-grid">
+      <button class="choice" onclick="showScreen('highest-authority')" type="button">
+        <span class="small">Test One</span>
+        <span class="label">Highest Authority</span>
+      </button>
+
+      <button class="choice" onclick="showScreen('highest-being')" type="button">
+        <span class="small">Test Two</span>
+        <span class="label">Highest Being</span>
+      </button>
+
+      <button class="choice" onclick="showScreen('highest-good')" type="button">
+        <span class="small">Test Three</span>
+        <span class="label">Highest Good</span>
+      </button>
+    </div>
+
+    <button class="back-button" onclick="showHome()" type="button">← Back to First Page</button>
+  </section>
+
+</div>
+</body>
+</html>
