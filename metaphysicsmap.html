@@ -111,6 +111,13 @@ h1{margin:0 0 10px;font-size:clamp(2.4rem,5vw,4rem);letter-spacing:.02em;color:#
   cursor:pointer;
 }
 .back-button:hover{background:#f4ead8;}
+.button-row{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:22px;
+}
 .saved-note{
   margin-top:26px;
   padding:14px 16px;
@@ -862,6 +869,11 @@ body.interior-page .panel{margin-top:0 !important;}
 <button class="choice" onclick="showPanel('know-real-no')" type="button">
 <strong>No</strong>
 </button>
+</div>
+<div class="button-row">
+  <button class="back-button" type="button" onclick="window.location.href='index.html'">
+    ← Back to Index
+  </button>
 </div>
 </div>
 <div class="panel-section" id="panel-know-real-yes">
