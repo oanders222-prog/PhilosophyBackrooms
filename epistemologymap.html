@@ -164,6 +164,14 @@ button{-webkit-appearance:none;appearance:none;}
 
 .back-button:hover{background:#e1f0f8;}
 
+.button-row{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:22px;
+}
+
 .answer-block{
   max-width:800px;
   margin:0 auto;
@@ -640,6 +648,11 @@ whether knowledge is possible, and how we can distinguish truth from error.
 <span class="small">Answer</span>
 <span class="label">No</span>
 </button>
+</div>
+<div class="button-row">
+  <button class="back-button" type="button" onclick="window.location.href='index.html'">
+    ← Back to Index
+  </button>
 </div>
 </main>
 <section class="panel" id="panel-three-acts">
