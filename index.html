@@ -246,6 +246,62 @@
     .path-grid{grid-template-columns:1fr}
   }
 
+  /* Distinguish text boxes from buttons */
+  .info-box,
+  .home-note,
+  .panel-intro,
+  .source-box {
+    background: #fffef6;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: none;
+    cursor: default;
+    color: var(--muted);
+    padding: 16px;
+    border-radius: 12px;
+    transition: none;
+    user-select: text;
+  }
+
+  .info-box .box-title,
+  .home-note .box-title {
+    display:block;
+    font-weight:700;
+    color:var(--accent);
+    margin-bottom:8px;
+    font-size:0.95rem;
+  }
+
+  /* Make interactive controls look more clickable */
+  .choice,
+  .back-button,
+  .play-game-button {
+    cursor: pointer;
+  }
+
+  .choice,
+  .play-game-button {
+    border-width:2px;
+    border-style:solid;
+    box-shadow:0 10px 28px rgba(0,0,0,0.08);
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+
+  .choice:hover,
+  .play-game-button:hover,
+  .back-button:hover {
+    transform: translateY(-3px);
+    box-shadow:0 16px 36px rgba(0,0,0,0.12);
+  }
+
+  /* Keep Back buttons slightly subtler */
+  .back-button {
+    border-width:1px;
+    box-shadow:none;
+  }
+
+  /* Non-link placeholders shouldn't look clickable */
+  a:not([href]){ cursor: default; color:inherit; text-decoration:none; }
+
 </style>
 <script>
 function showScreen(name) {
